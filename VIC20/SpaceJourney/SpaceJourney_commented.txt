@@ -1,0 +1,164 @@
+VARIABLES
+
+m number of missiles
+v volume register
+n border and background color register
+q space character
+p player's position
+l number of lives left
+i score
+r record
+t offset to access corresponding screen color ram
+
+
+EXTENDED CODE
+
+0forb=.to4:readb$:forp=1to8:poke7167+b*8+p,asc(mid$(b$,p))-1:poke7421+p,.:next:next:ifi>rthenr=i
+1i=.:l=3:q=32:y=22:v=36878:p=8174:n=v+1:poken,8:pokev-9,255:m=5:print"{clear}{reverse on}{white}jl spc":wait198,1
+2poke56,26:poke52,26:x=132:t=30720:poken,127:poke650,128:j$="{home}{down}":g=8163:u=218:print"{clear}":poken,8
+3i=i+1:b=i/512:fork=.tob:printj$tab(rnd(.)*21)c$:next:if(iand127)=.thenb$="{yellow}{66}":data"{ 25}{ 37}{ 25}{ 61}{166}{166}{166}{154}"
+4if(iand31)=.thens=rnd(.)*21:printj$tab(s)b$;:if(iand511)=.thenprinttab(s)"{left}{green}{64}":data"{  1}{  9}{ 29}{ 29}{ 29}{ 43}{  1}{  1}"
+5c=peek(p-y):ifc<5thenpokev,15:pokev,.:ifc>2thenl=l-1:pokep+t,4:forh=.to999:m=5:next:if(l>.)goto2
+6f=.:geta$:ifa$<>""thenf=asc(a$):k=p+(f=74)-(f=76):ifk<8185thenifk>gthenp=k:data"{  1}{ 37}{ 91}{ 53}{ 45}{ 91}{ 37}{  1}"
+7print"{home}{down}{left}{148}":pokeu,x:pokep+t,2:pokep,.:iff=qthenifm>.thenm=m-1:forh=1to9:pokep-y*h,1:pokep-y*h,q:next
+8b$="{cyan}{65}":print"{home}{red}@{reverse on}{white}"l"{reverse off}{cyan}a{reverse on}"m"{white}"i"{blue}"r:ifc<2thenm=m-(m<9):ifl<9thenl=l-(c=.):data"{ 11}{ 22}{ 11}{ 32}{ 24}{ 30}{ 32}{15}"
+9c$="{white}"+chr$(67+(iand1)):on-(c=2)goto2:on-(l>.)goto3:poke198,.:restore:goto0:data"{ 43}{ 21}{ 63}{ 59}{ 47}{ 63}{ 59}{ 29}"
+
+
+COMMENTED, EXTENDED, INDENTED CODE
+0
+// Read graphics data from strings (use -1 to avoid using impossible values in strings)
+forb=.to4:readb$:forp=1to8:poke7167+b*8+p,asc(mid$(b$,p))-1:poke7421+p,.:next:next:
+
+// Check for and possibly set new record
+ifi>rthenr=i
+
+1
+
+// Set score to zero, lives to 3, initialize some constanst and set initial player's position
+i=.:l=3:q=32:y=22:v=36878:p=8174:n=v+1:
+
+// Set background and border color to black
+poken,8:
+
+// Map first 64 characters to ram and last 128 to rom (accessed as reversed characters)
+pokev-9,255:
+
+// Set missiles to 5
+m=5:
+
+// Print instructions and wait for key-press
+print"{clear}{reverse on}{white}jl spc":wait198,1
+
+    2 -- RESTART LOOP if special iteam is hit
+
+    // Lower BASIC code and variable top address
+    poke56,26:poke52,26:
+
+    // Initialization
+    x=132:t=30720:
+
+    // Change background and border to create a flash effect
+    poken,127:poke650,128:
+
+    // Initialization
+    j$="{home}{down}":g=8163:u=218:
+
+    // Clear screen
+    print"{clear}":
+
+    // Set background and border color to black (end of flash effect)
+    poken,8
+
+    3 -- MAIN GAME LOOP when no special item is hit
+
+    // Increase score
+    i=i+1:
+
+    // Compute number of asteroids -1 per line
+    b=i/512:
+
+    // Display one line of asteroids 
+    fork=.tob:printj$tab(rnd(.)*21)c$:next:
+
+    // If every 128th line possibly display a bonus
+    if(iand127)=.thenb$="{yellow}{66}":data"{ 25}{ 37}{ 25}{ 61}{166}{166}{166}{154}"
+
+    4
+
+    // Every 32nd line, generate a random missile 
+    if(iand31)=.thens=rnd(.)*21:printj$tab(s)b$;:
+
+    // Every 512th line, generate an extra life
+    if(iand511)=.thenprinttab(s)"{left}{green}{64}":data"{  1}{  9}{ 29}{ 29}{ 29}{ 43}{  1}{  1}"
+
+    5
+
+    // If spaceship hits an item
+    c=peek(p-y):
+    ifc<5then
+        // produce a beep
+        pokev,15:pokev,.:
+        // if it is an asteroid
+        ifc>2then
+            // descrease number of lives, change spaceship color, wait, reset milles
+            l=l-1:pokep+t,4:forh=.to999:m=5:next:
+                // if lives left goto 2
+                if(l>.)goto2
+
+    6
+
+    f=.:
+
+    // Read keyboard
+    geta$:
+
+    // If key-press then compute new possible position for the spaceship
+    ifa$<>""thenf=asc(a$):k=p+(f=74)-(f=76):
+        // if new position is not beyond the limits than set spaceship's position to new position
+        ifk<8185thenifk>gthenp=k:
+        data"{  1}{ 37}{ 91}{ 53}{ 45}{ 91}{ 37}{  1}"
+
+    7
+    // (Ab-)use editor to produce a scroll-down 
+    print"{home}{down}{left}{148}":pokeu,x:
+
+    // Display spaceship
+    pokep+t,2:pokep,.:
+    // if space bar is pressed and if missles are left then
+    iff=qthenifm>.then
+        // Decrease the number of missles, display missile (which will automatically delete any other item on its trajectory)
+        m=m-1:forh=1to9:pokep-y*h,1:pokep-y*h,q:next
+
+    8
+    // Re-set b$ to missile
+    b$="{cyan}{65}":
+
+    // Display lives, missiles, score and record 
+    print"{home}{red}@{reverse on}{white}"l"{reverse off}{cyan}a{reverse on}"m"{white}"i"{blue}"r:
+
+    // If spaceship touches a missile or an extra life, then
+    ifc<2then
+        // Increase number of missiles
+        m=m-(m<9):
+        // if lives are below 9
+        ifl<9then
+            // increase lives if extra life is touched
+            l=l-(c=.):
+            data"{ 11}{ 22}{ 11}{ 32}{ 24}{ 30}{ 32}{15}"
+
+    9
+
+    // Alternate asteroids shapes
+    c$="{white}"+chr$(67+(iand1)):
+
+    // if special item is touched go to 2, to clear all asteroids
+    on-(c=2)goto2:
+
+    // Else, if lives are left go to 3
+on-(l>.)goto3:
+
+// Otherwise, restart the game
+poke198,.:restore:goto0:
+data"{ 43}{ 21}{ 63}{ 59}{ 47}{ 63}{ 59}{ 29}"
+

@@ -1,0 +1,157 @@
+VARIABLES
+v volume register
+n border and forground color register
+i score
+r record
+p player's position
+d street status: 0 (left), 1 (straight), 2 (right) 
+l dammage 0-9
+o left offset of the road
+t offset address to access corresponding color ram
+y interval at which the street status may change
+l$ left road border with guard-rail and trees
+r$ right road border with guard-rail and trees
+
+
+EXTENDED CODE
+0poke56,26:poke52,26:v=36878:x=132:pokev-9,255:forp=.to39:readb:poke7168+p,b:poke7421+p,.:next
+1e=22:z=218:o=4:y=3:b=7:p=8174:poke650,z:print"{clear}{black}{reverse on}jl":l$="{green}{68*2}{black}{66}":r$="{black}{67}{green}{68*2}":ifi>rthenr=i
+2n=v+1:t=30720:poken,59:wait198,1:print"{clear}":fori=3toe:printtab(4)"{green}{68}{black}{reverse on}{230}{191}"spc(8)"{191}{230}{reverse off}{green}{68}":next:d=1:i=.
+3b=b+f:i=i+1:if(iandy)=ythend=int(rnd(.)*3):ifb<4thenifo<6thenb=4:y=7:data24,189,255,165
+4s=int(rnd(.)*(b+1)):ifpeek(p-e)<>32thenpoken,42:pokev,15:pokev,.:l=l+1:forf=-9tox:next:poken,59
+5c$=" ":geta$:ifiand1thenc$="{31}@":ifl<.thenl=.:data36,189,255,165,90,102,90,60,36,219,255
+6print"{home}{down}{left}{148}":pokez,x:pokep+t,2:pokep,1:ifpeek(p-e)=4thenl=9:data195,93,114,101,66,93,114,101,66
+7printspc(o)l$spc(s)c$spc(b-s)r$:ifa$<>""thenk=asc(a$):p=p+(k=74)-(k=76):data93,39,83,33,93,39
+8print"{home}{red}a{reverse on}"l" {purple}"i" {black}"r:f=(iand127)=.:l=l+f:ifo>1-dthenifo+d+b<17theno=o-1+d:data83,33,8,28
+9on-(l<9)goto3:print"{home}{down*2}"spc(8)"{black}{reverse on}{191} {red}end {black}{191}":fors=ttov:next:l=.:poke198,0:goto1:data62,28,62,8,8,
+
+
+COMMENTED EXTENDED AND INDENTED CODE
+
+0
+// Move BASIC code and variable top address
+poke56,26:poke52,26:
+
+// Initialization
+v=36878:x=132:
+
+// Map characters first 64 characters in ram and last 128 in rom as reversed
+pokev-9,255:
+
+// Read definition of user-defined characters characters
+forp=.to39:readb:poke7168+p,b:poke7421+p,.:next
+
+// Initialization
+1e=22:z=218:o=4:y=3:b=7:p=8174:
+
+// Set keyboard auto-repeat
+poke650,z:
+
+// Display instructions
+print"{clear}{black}{reverse on}jl":
+
+// Initialize strings containing guard rails and trees
+l$="{green}{68*2}{black}{66}":r$="{black}{67}{green}{68*2}":
+
+// Check for and possibly set new record
+ifi>rthenr=i
+
+
+2
+
+// Initialization
+n=v+1:t=30720:
+
+// Set background and border colors
+poken,59:
+
+// Wait for keypress
+wait198,1:
+
+// clear screen
+print"{clear}":
+
+// Display start of the race
+fori=3toe:printtab(4)"{green}{68}{black}{reverse on}{230}{191}"spc(8)"{191}{230}{reverse off}{green}{68}":next:
+
+// Initialization
+d=1:i=.
+
+3 --- MAIN GAME LOOP
+
+    // New road width
+    b=b+f:
+
+    // Increase score
+    i=i+1:
+
+    // (Possibly) generate new curve
+    if(iandy)=ythen
+        d=int(rnd(.)*3):
+        ifb<4thenifo<6then
+            b=4:y=7:data24,189,255,165
+
+    4
+    // New random car position
+    s=int(rnd(.)*(b+1)):
+
+    // If hit something than increase dammage and flash screen
+    ifpeek(p-e)<>32then
+        poken,42:pokev,15:pokev,.:l=l+1:forf=-9tox:next:poken,59
+
+
+    5
+
+    // No car unless... (see below)
+    c$=" ":
+
+    // Read keyboard
+    geta$:
+
+    // If score is odd, than new car
+    ifiand1then
+        c$="{31}@":
+
+    // No less than 0 dammage
+        ifl<.then
+            l=.:data36,189,255,165,90,102,90,60,36,219,255
+
+    6
+    // Scroll down by inserting a new line and cheating the editor into believing it has a long enough logical line
+    print"{home}{down}{left}{148}":pokez,x:
+
+    // Display player's char
+    pokep+t,2:pokep,1:
+
+    // If player hit a tree than max dammage
+    ifpeek(p-e)=4then
+        l=9:data195,93,114,101,66,93,114,101,66
+
+    7
+
+    // Display a line of the road
+    printspc(o)l$spc(s)c$spc(b-s)r$:
+
+    // If key pressed than change player's position
+    ifa$<>""then
+        k=asc(a$):p=p+(k=74)-(k=76):data93,39,83,33,93,39
+
+
+    8
+
+    // Display score
+    print"{home}{red}a{reverse on}"l" {purple}"i" {black}"r:
+
+    // Recover from dammage after each 128 points
+    f=(iand127)=.:l=l+f:
+
+    // Check limits and change left offset of the road 
+    ifo>1-dthenifo+d+b<17then
+        o=o-1+d:data83,33,8,28
+
+9
+// If damange below 9 restart main game loop
+on-(l<9)goto3:
+
+// Otherwise, display "end", pause, wait for key-press and restart from the beginning
+print"{home}{down*2}"spc(8)"{black}{reverse on}{191} {red}end {black}{191}":fors=ttov:next:l=.:poke198,0:goto1:data62,28,62,8,8,
