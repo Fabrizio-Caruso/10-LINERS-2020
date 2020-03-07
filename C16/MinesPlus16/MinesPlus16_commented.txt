@@ -24,13 +24,13 @@ EXTENDED CODE
 0h=500:g=3073:o=3191:color.,1:color4,1:k=1:n=3:m=87:deffnu(x)=int(rnd(1)*x):ifj>rthenr=j
 1d=4032:t=1024:j=.:p=o+h:q=.7:print"{white}{clear}ijkl {gray}spc":getkeyk$:fori=.tom:pokeo+1+fnu(840),m:next
 2color4,1:printspc(18)"{red}mines+":ifj=.orp<o+morp>d-41thenfori=.to39:pokeo-i,102:poked+i,102:next
-3print"{home}{yellow} ${white}"9-f" {red}Q{white}"n;spc(5)"{cyan}score{white}"j" {blue}hi{white}"r:ifpeek(p)=36thensound2,h,2:j=j+9:f=f+(f>.)
+3print"{home}{yellow} ${white}"9-f" {red}Q{white}"n"    {cyan}score{white}"j" {blue}hi{white}"r:ifpeek(p)=36thensound2,h,2:j=j+9:f=f+(f>.)
 4l=jand3:y=.:geta$:ifrnd(.)>qthenx=p-4+2*fnu(5)+80*fnu(2-(p<3990))-80:pokex,m:pokex-t,113
-5vol7:s=asc(a$+"@"):n=-n*(p<dandp>o):pokep,81:pokep-t,113:ifj>=k*hthenk=k+1:f=.:n=n-(n<9)
-6a=32:e=sand1:c=s-75+e:ifsgn(c)=ctheny=1:pokep,m:p=p+c*(39*e+1):j=j+1:q=q-.001:sound2,1,3
-7pokeg-t,119:pokeg,36:g=3073:pokep-t,1+k:ifythenifl=3theng=o+1+fnu(840):pokeg-t,4:pokeg,90
-8ifs=atheniff<9thencolor4,11:pokep,90:pokep-1,a:pokep+1,a:pokep-i,a:pokep+i,a:f=f+1:sound3,a,2:goto2
-9on-(n>.andpeek(p)<m)goto3:n=n-1:f=.:sound3,m,5:on-(n>.)goto3:fork=-ttot:next:getkeyk$:goto0
+5s=asc(a$+"@"):n=-n*(p<dandp>o):a=32:e=sand1:c=s-75+e:ifj>=k*hthenk=k+1:f=.:n=n-(n<9)
+6pokep,81:pokep-t,113:ifsgn(c)=ctheny=1:pokep,m:p=p+c*39*e+c:j=j+1:q=q-.001:sound2,9,2
+7pokep-t,1+k:pokeg-t,119:pokeg,36:g=3073:ifythenifl=3theng=o+1+fnu(840):pokeg-t,4:pokeg,90
+8ifs=atheniff<9thencolor4,11:pokep,90:pokep-1,a:pokep+1,a:pokep-i,a:pokep+i,a:f=f+1:sound3,9,2:goto2
+9vol5:on-(n>.andpeek(p)<m)goto3:n=n-1:f=.:sound3,m,5:on-(n>.)goto3:fork=-ttot:next:getkeyk$:goto0
 
 
 COMMENTED, EXTENDED, INDENTED CODE
@@ -80,7 +80,7 @@ fori=.tom:pokeo+1+fnu(840),m:next
 3 --- LOOP entry when key-pressed is not space bar
 
     // Display score
-    print"{home}{yellow} ${white}"9-f" {red}Q{white}"n;spc(5)"{cyan}score{white}"j" {blue}hi{white}"r:
+    print"{home}{yellow} ${white}"9-f" {red}Q{white}"n"    {cyan}score{white}"j" {blue}hi{white}"r:
 
     // If on an anti-mine charge, then increase 9 more points (10 total) and decrease number of used mines if not yet zero
     ifpeek(p)=bthensound2,h,2:j=j+9:f=f+(f>.)
@@ -102,17 +102,17 @@ fori=.tom:pokeo+1+fnu(840),m:next
 
     5
 
-    // Set volume to max
-    vol7:
-
     // Compute ASCII code of key-pressed 
     s=asc(a$+"@"):
 
     // If on wall, then lives left are zero
     n=-n*(p<dandp>o):
+    
+    // Set constant a to 32 (space character)
+    a=32:
 
-    // Display player
-    pokep,81:pokep-t,113:
+    // Part of IJKL trick (see [*])
+    e=sand1:c=s-75+e:
 
     // If reached next 500 points, then 
     // - increase next extra extra-life counter
@@ -120,39 +120,46 @@ fori=.tom:pokeo+1+fnu(840),m:next
     // - max charges
     ifj>=k*hthen
         k=k+1:f=.:n=n-(n<9)
+        
     6
-    // Set constant a to 32 (space character)
-    a=32:
 
-    // Part of IJKL trick (see [*])
-    e=sand1:c=s-75+e:
+    // Display player with white color
+    pokep,81:pokep-t,113:
+
 
     // If IJKL key pressed than set flag y, display mine, compute new player's position, increase point, decrease q, produce beep 
     ifsgn(c)=cthen
-        y=1:pokep,m:p=p+c*(39*e+1):j=j+1:q=q-.001:sound2,1,3
+        y=1:pokep,m:p=p+c*39*e+c:j=j+1:q=q-.001:sound2,9,2
 
     7
-    // display newly created anti-mine charge (created in the previous loop)
+    
+    // Set player's color
+    pokep-t,1+k:
+    
+    // Display newly created anti-mine charge (created in the previous loop)
     pokeg-t,119:pokeg,36:
 
     // Reset position of anti-mine charge in the score line
     g=3073:
 
-    // Set player's color
-    pokep-t,1+k:
 
     // If IJKL key pressed and l has reached 3, then generate new charge and display it as a diamond (it will be morphed to charge in the next loop)
-    ifythenifl=3theng=o+1+fnu(840):pokeg-t,4:pokeg,90
+    ifythenifl=3then
+        g=o+1+fnu(840):pokeg-t,4:pokeg,90
 
     8
 
     // If key pressed is space bar and there are charges left, 
     ifs=atheniff<9then
         // then change border color, display player as diamond, remove anything at top,bottom,left,right of the player, decrease charges, noise, goto to 2
-        color4,11:pokep,90:pokep-1,a:pokep+1,a:pokep-i,a:pokep+i,a:f=f+1:sound3,a,2:goto2
+        color4,11:pokep,90:pokep-1,a:pokep+1,a:pokep-i,a:pokep+i,a:f=f+1:sound3,9,2:goto2
 
 9
 // if lives left and player is not on mine, goto 3
+
+// Set volume level
+vol5
+
 on-(n>.andpeek(p)<m)
     goto3:
 
