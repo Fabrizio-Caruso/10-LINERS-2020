@@ -1,7 +1,18 @@
 VARIABLES
-s(i) i-th zombie vertical position
+e(i) i-th zombie vertical position
 l space character (32)
+i zombie index
 c arc character: with arc (41), without arrow (43)
+s zombie character (40)
+d arrow character (42)
+y flag for arrow flying (0) or available (1)
+p start player position
+q player's position offset
+g base address for zombie position
+j score
+r record
+n index of zombie on the arrow trajectory
+
 
 EXTENDED CODE
 0poke52,31:poke56,31:clr:s=40:dime(s):poke1177,62:fori=8to519:poke8192+i,peek(53248+i):next
