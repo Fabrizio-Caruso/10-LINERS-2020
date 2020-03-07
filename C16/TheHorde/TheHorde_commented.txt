@@ -25,6 +25,7 @@ poke52,31:poke56,31:clr:
 // Initialization
 s=40:dime(s):
 
+// Ser read from ROM
 poke1177,62:
 
 fori=8to519:
@@ -36,13 +37,163 @@ next
 // Set background and border color to black
 color.,1:color4,1:
 
-// Read graphics data
-reada$:fori=.to31:poke8512+i,asc(mid$(a$,i+1))-1:next:poke1177,63:z=65298:vol6
-2l=32:pokez+1,l:pokez,.:u=920:print"{clear}{white}j l {gray}[spc]":b=80:p=3152:g=p-b:getkeyk$:scnclr:ifj>rthenr=j
-3c=41:d=42:fori=0to39:e(i)=u:pokep+i-g/3,66:pokep-s+i,64:pokeg+u+i,s:next:j=.:q=20:gosub9
-4pokep+q,c:i=rnd(.)*s:h=e(i):pokeg+h+i,l:e(i)=h-s:pokeg+m+n,l:ifythenm=m+s:pokeg+m+n,d
-5pokeg+e(i)+i,s:ifythenifm>=e(n)thenpokeg+e(n)+n,l:e(n)=u:j=j+1:y=.:c=41:sound3,b,2:gosub9
-6geta$:ifa$<>""thena=asc(a$):pokep+q,l:k=q+(a=74)-(a=76):ifk>=.thenifk<sthenq=k
-7ify=.thenifa=lthensound1,1,3:y=1:n=q:m=b:c=43:data"{25}{61}{25}{103}{154}{25}{37}{103}{21}{09}{158}{172}{75}{75}{45}{25}{21}{09}{09}{09}{09}{09}{29}{09}{01}{01}{130}{190}{67}{67}{37}{25}"
-8a=.:on-(e(i)>b)goto4:char1,15,9,"{red}game over":sound3,d,s:fory=.tog:next:getkeyk$:y=.:goto2
-9pokeg+m+n,l:pokeg+u+n,s:m=u+s:u=u+s*((jand63)=9):print"{home}"spc(12)"{cyan}score{white}"j"   {gray}hi{light gray}"r:return
+// Read graphics data from a single string containing editable characters (the -1 is there to avoid invalid characters)
+reada$:
+fori=.to31:
+    poke8512+i,asc(mid$(a$,i+1))-1:
+next:
+
+// Set read from RAM
+poke1177,63:
+
+// Initialization
+z=65298:
+
+// Set volume level
+vol6
+
+2
+
+// Initialization
+l=32:
+
+// Set characters in RAM
+pokez+1,l:pokez,.:
+
+// Initialization initial zombie position
+u=920:
+
+// Display instructions
+print"{clear}{white}j l {gray}[spc]":
+
+// Initialization
+b=80:p=3152:g=p-b:
+
+// Wait for key-press
+getkeyk$:
+
+// Clear the screen
+scnclr:
+
+// Check for record and set 
+ifj>rthenr=j
+
+3
+
+// Initialization 
+c=41:d=42:
+
+fori=0to39:
+    e(i)=u:
+    pokep+i-g/3,66:
+    pokep-s+i,64:
+    pokeg+u+i,s:
+next:
+// Set score to zero
+j=.:
+
+// Initialization
+q=20:
+
+// Display score line
+gosub9
+
+4 -- MAIN GAME LOOP
+
+    // Display player
+    pokep+q,c:
+
+    // Compute random zombie to move
+    i=rnd(.)*s:
+
+    // Delete moving zombie and update his position
+    h=e(i):pokeg+h+i,l:e(i)=h-s:
+
+    // Delete zombie in arrow trajectory
+    pokeg+m+n,l:
+
+    // If zombie is moving, then display new position
+    ifythen
+        m=m+s:pokeg+m+n,d
+        
+    5
+
+    // Display moving zombie
+    pokeg+e(i)+i,s:
+
+    // If arrow hits a zombie
+    ifythenifm>=e(n)then
+        // Delete zombie 
+        pokeg+e(n)+n,l:
+        
+        // Reset zombie position
+        e(n)=u:
+        
+        // Increase score
+        j=j+1:
+        
+        // Reset flag 
+        y=.:
+        
+        // Reset arc with arrow character
+        c=41:
+        
+        // Sound
+        sound3,b,2:
+        
+        // Display score
+        gosub9
+
+    6
+    // Read keyboard
+    geta$:
+
+    // If key-press
+    ifa$<>""then
+        // Use IJKL trick (see [*])
+        a=asc(a$):pokep+q,l:k=q+(a=74)-(a=76):
+            // If new player's position is within the valid bounds, then update player's position
+            ifk>=.thenifk<s
+                thenq=k
+
+    7
+
+    // If arrow available and key pressed is the space bar
+    ify=.thenifa=lthen
+        // Beep, set arrow as not available, set index of zombie in arrow trajectory, set arc character as arc with no arrow
+        sound1,1,3:y=1:n=q:m=b:c=43:
+        data"{25}{61}{25}{103}{154}{25}{37}{103}{21}{09}{158}{172}{75}{75}{45}{25}{21}{09}{09}{09}{09}{09}{29}{09}{01}{01}{130}{190}{67}{67}{37}{25}"
+
+    8
+
+    // Reset ASCII code of key pressed 
+    a=.:
+
+// If zombie not on player's line, go to line 4
+on-(e(i)>b)
+    goto4:
+    
+    // else display "GAME OVER", beep, pause, wait for key-press, set arrow as available, go back to line 2
+    char1,15,9,"{red}game over":sound3,d,s:fory=.tog:next:getkeyk$:y=.:goto2
+
+9
+pokeg+m+n,l:pokeg+u+n,s:m=u+s:u=u+s*((jand63)=9):print"{home}"spc(12)"{cyan}score{white}"j"   {gray}hi{light gray}"r:return
+
+
+
+[TRICK] (*)
+I have come up with this trick (by myself) in 2019. It may be a new trick.
+I do not use conditionals, nor precomputed offsets, nor Boolean expressions.
+I use an interpolating formula that computes the offset from the ASCII code of the pressed key.
+
+I exploit the special symmetry of the ASCII codes of the keys I J K L:
+- I and K have odd codes and a distance of 2 bytes
+- J and L have even codes and a distance of 2 bytes
+- I and K have odd ASCII codes
+- J and L have even ASCII codes
+So, given s=ASC(a$) with a$ either I or J or K or L, we update the position p with
+p=p+c*(21*e+1) 
+where
+- e=s and 1 -> parity of the code, i.e., vertical vs horizontal movement
+- c=s-75+e -> -1 for left/up vs +1 for right/down
+- 39*e+1 -> vertical vs horizontal offset absolute value, i.e., 1 vs 40
