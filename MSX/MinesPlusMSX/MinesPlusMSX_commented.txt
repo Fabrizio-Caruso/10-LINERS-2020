@@ -51,6 +51,49 @@ VPOKE8218,W:
 // Re-set color of the charge $ character
 VPOKEU,161
 
+3
+
+// Set a key-press flag to 0 (false)
+Y=0:
+
+// Compute new anti-mine charge counter
+L=JAND3:
+
+// Print score
+LOCATE8,0:?"SCORE"J" HI"R:
+
+// If player on anti-mine charge, then beep, increase score by 9 (so 10 points after normal score increase), decrease used charges if not zero, beep again
+IFVPEEK(P)=WTHEN
+    BEEP:J=J+9:F=F+(F>0):BEEP
+
+4
+// Display number of lives
+VPOKE6150,48+V:
+
+// Read ASCII code of pressed key 
+S=ASC(INKEY$+"@"):
+
+// With 1-Q probability, generate a new mine
+IFRND(N)>QTHEN
+    VPOKEP-4+2*FNR(5)+64*FNR(3)-64,M
+
+5
+// Set player's color
+VPOKEU-4,Z:
+
+// Display player
+VPOKEP,2:
+
+// Part of IJKL trick (See [*])
+E=SAND1:
+
+// If next 500 points reached then, increase extra life threshold counter, reset used charges, increase lives if < 9, set new player's color
+IFJ>=K*TTHEN
+    K=K+1:
+    F=0:
+    V=V-(V<9):
+    Z=145-(KMOD8)*16
+
 
 0M=248:SCREEN1:O=6207:P=6544:X=672:U=8196:Q=.9:N=32:K=0:D=6880:W=36:IFJ>RTHENR=J
 1T=500:KEYOFF:J=0:DEFFNR(X)=INT(RND(N)*X):V=2:FORI=0TOW:VPOKEO+1+FNR(X),M:NEXT
@@ -62,3 +105,21 @@ VPOKEU,161
 7VPOKE6149,2:V=-V*(P<DANDP>O):VPOKE6145,W:IFYANDL=3THENVPOKEO+1+FNR(X),W
 8IFS=NANDF<9THENCOLOR,8:VPOKEP-1,N:VPOKEP+1,N:VPOKEP-N,N:VPOKEP+N,N:F=F+1:GOTO2
 9ON-(V>0ANDVPEEK(P)<>M)GOTO3:V=V-1:F=0:BEEP:ON-(V>0)GOTO3:FORI=0TOO/2:NEXT:GOTO0
+
+
+[TRICK] (*)
+I have come up with this trick (by myself) in 2019. It may be a new trick.
+I do not use conditionals, nor precomputed offsets, nor Boolean expressions.
+I use an interpolating formula that computes the offset from the ASCII code of the pressed key.
+
+I exploit the special symmetry of the ASCII codes of the keys I J K L:
+- I and K have odd codes and a distance of 2 bytes
+- J and L have even codes and a distance of 2 bytes
+- I and K have odd ASCII codes
+- J and L have even ASCII codes
+So, given s=ASC(a$) with a$ either I or J or K or L, we update the position p with
+p=p+c*(31*e+1) 
+where
+- e=s and 1 -> parity of the code, i.e., vertical vs horizontal movement
+- c=s-75+e -> -1 for left/up vs +1 for right/down
+- 31*e+1 -> vertical vs horizontal offset absolute value, i.e., 1 vs 32
