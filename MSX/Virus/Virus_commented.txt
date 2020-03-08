@@ -1,3 +1,12 @@
+VARIABLES
+J score
+R record
+H time
+
+
+
+
+CODE
 0DEFINTA-Y:H=0:KEYOFF:SCREEN1:COLOR14,1,1:N=32:O=6207:VPOKE8218,78:IFJ>RTHENR=J
 1WIDTHN:DEFFNR(X)=RND(N)*X:M=15:W=111:FORI=0TO10:FORZ=0TO19:G=O+1+I*64+FNR(N)
 2VPOKEG,M:VPOKEG+N,W:NEXT:NEXT:Z=1:FORI=0TO31:VPOKEO-I,215:VPOKE6880+I,215:NEXT
@@ -8,3 +17,45 @@
 7K=16*(HAND1):H=H+1:IFVPEEK(P)=WTHENJ=J+1:FORI=0TOY:VPOKEO+1+FNR(672),W:NEXT:H=0
 8L=(Y>4):VPOKEP,2:IFVPEEK(X)=MTHENVPOKEX-1,M:VPOKEX+1,M:VPOKEX-N,M:VPOKEX+N,M
 9VPOKEB,49-128*L:ON-(P<6880ANDP>OANDH<99)GOTO4:?"GAME OVER":FORI=0TOB:NEXT:GOTO0
+
+
+COMMENTED, EXTENDED AND INDENTED CODE
+0
+
+// Declare integer variables
+DEFINTA-Y:
+
+// Initialization
+H=0:
+
+// Remove keys from 
+KEYOFF:
+
+// Set screen mode and some colors
+SCREEN1:COLOR14,1,1:
+
+// Initialization
+N=32:O=6207:
+
+// 
+VPOKE8218,78:
+
+// Check if new record is set. Set record if necessary
+IFJ>RTHENR=J
+
+1
+
+// Set 32 column screen
+WIDTHN:
+
+// Define random integer function
+DEFFNR(X)=RND(N)*X:
+
+// Initialization
+M=15:W=111:
+
+FORI=0TO10:
+    FORZ=0TO19:
+        G=O+1+I*64+FNR(N)
+
+
