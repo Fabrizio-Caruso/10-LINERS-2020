@@ -28,7 +28,7 @@ EXTENDED CODE
 4l=jand3:y=.:geta$:ifrnd(.)>qthenx=p-4+2*fnu(5)+80*fnu(2-(p<3990))-80:pokex,m:pokex-t,113
 5s=asc(a$+"@"):n=-n*(p<dandp>o):a=32:e=sand1:c=s-75+e:ifj>=k*hthenk=k+1:f=.:n=n-(n<9)
 6pokep,81:pokep-t,113:ifsgn(c)=ctheny=1:pokep,m:p=p+c*39*e+c:j=j+1:q=q-.001:sound2,9,2
-7pokep-t,1+k:pokeg-t,119:pokeg,36:g=3073:ifythenifl=3theng=o+1+fnu(840):pokeg-t,4:pokeg,90
+7pokep-t,1+k:pokeg-t,119:pokeg,36:g=3073:ifl=3thenifytheng=o+1+fnu(840):pokeg-t,4:pokeg,90
 8ifs=atheniff<9thencolor4,11:pokep,90:pokep-1,a:pokep+1,a:pokep-i,a:pokep+i,a:f=f+1:sound3,9,2:goto2
 9vol5:on-(n>.andpeek(p)<m)goto3:n=n-1:f=.:sound3,m,5:on-(n>.)goto3:fork=-ttot:next:getkeyk$:goto0
 
@@ -144,7 +144,7 @@ fori=.tom:pokeo+1+fnu(840),m:next
 
 
     // If IJKL key pressed and l has reached 3, then generate new charge and display it as a diamond (it will be morphed to charge in the next loop)
-    ifythenifl=3then
+    ifl=3thenifythen
         g=o+1+fnu(840):pokeg-t,4:pokeg,90
 
     8
