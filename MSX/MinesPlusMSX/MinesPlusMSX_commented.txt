@@ -1,6 +1,29 @@
 VARIABLES
-m mine character
-o upper border base address
+M mine character
+O upper border base address
+Q probability of not generating a new random mine
+V number of left lives
+M mine character
+P player's position
+F number of used anti-mine charges
+K counter for the next extra life threshold
+J score
+R record
+S ASCII code of the pressed key
+E vertical vs horizontal movement
+C -1 for left/up movement,  +1 for right/down movement 
+
+CODE
+0M=248:SCREEN1:O=6207:P=6544:X=672:U=8196:Q=.9:N=32:K=0:D=6880:W=36:IFJ>RTHENR=J
+1T=500:KEYOFF:J=0:DEFFNR(X)=INT(RND(N)*X):V=2:FORI=0TOW:VPOKEO+1+FNR(X),M:NEXT
+2COLOR14,1,1:FORI=0TO31:VPOKEO-I,215:VPOKED+I,215:NEXT:VPOKE8218,W:VPOKEU,161
+3Y=0:L=JAND3:LOCATE8,0:?"SCORE"J" HI"R:IFVPEEK(P)=WTHENBEEP:J=J+9:F=F+(F>0):BEEP
+4VPOKE6150,48+V:S=ASC(INKEY$+"@"):IFRND(N)>QTHENVPOKEP-4+2*FNR(5)+64*FNR(3)-64,M
+5VPOKEU-4,Z:VPOKEP,2:E=SAND1:IFJ>=K*TTHENK=K+1:F=0:V=V-(V<9):Z=145-(KMOD8)*16
+6VPOKE6146,57-F:C=S-107+E:IFSGN(C)=CTHENY=1:VPOKEP,M:P=P+C*31*E+C:J=J+1:Q=Q-.001
+7VPOKE6149,2:V=-V*(P<DANDP>O):VPOKE6145,W:IFL=3THENIFYTHENVPOKEO+1+FNR(X),W
+8IFS=NANDF<9THENCOLOR,8:VPOKEP-1,N:VPOKEP+1,N:VPOKEP-N,N:VPOKEP+N,N:F=F+1:GOTO2
+9ON-(V>0ANDVPEEK(P)<>M)GOTO3:V=V-1:F=0:BEEP:ON-(V>0)GOTO3:FORI=0TOO/2:NEXT:GOTO0
 
 
 COMMENTED AND EXTENDED CODE

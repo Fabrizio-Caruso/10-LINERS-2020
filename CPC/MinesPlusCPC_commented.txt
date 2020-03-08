@@ -1,0 +1,48 @@
+VARIABLES
+Z probability of not generating a new random mine
+U number of left lives
+M mine character
+P player's position
+G anti-mine charge character
+B(A) a-th location in the software screen buffer
+I character to display in display routine (line 10)
+A position of the character to display in display routine (line 10)
+T color of the character to display in display routine (line 10)
+F number of used anti-mine charges
+K counter for the next extra life threshold
+J score
+R record
+S ASCII code of the pressed key
+E vertical vs horizontal movement
+C -1 for left/up movement,  +1 for right/down movement 
+
+
+COMMENTED, EXTENDED, INDENTED CODE
+1DEFINT A-W:MODE 0:B=40:LOCATE 1,1:?"USE IJKL SPACE":D=500:BORDER 0:Z=.8:DEF FNRR(X)=RND(1)*X:H=20:IF J=0 THEN DIM B%(D)
+2U=3:M=230:N=400:W$=CHR$(207):K=1:I=M:P=M:J=0:FOR A=0 TO D:B(A)=0:NEXT:T=4:FOR O=60 TO 79:A=O+H*FNRR(H):GOSUB 10:NEXT
+3LOCATE 2,1:PEN 9:?9-F;:PEN 10:?CHR$(231);:PEN 8:?U;:PEN 4:?J;:PEN 10:?R:IF B(P)=36 THEN SOUND 1,D,4:J=J+9:F=F+(F>0)
+4IF RND(1)>Z THEN A=P-4+2*FNRR(4)+B*FNRR(1-(P<395))-B:I=M:T=4:GOSUB 10:PEN 3:LOCATE 7,2:?" MINES+ ":Z=Z-.001
+5U=U*(P<460)*(P>59):L=J AND 3:A=P:I=231:T=9+K MOD 3:GOSUB 10:Y=0:S=ASC(INKEY$+"@"):E=S AND 1:C=S-107+E:IF J>R THEN R=J
+6IF SGN(C)=C THEN Y=1:A=P:I=M:T=4:GOSUB 10:P=P+C*(19*E+1):J=J+1:SOUND 1,N,3:IF J>=K*D THEN K=K+1:F=0:U=U-(U<9)
+7INK 0,0:Q=(P>79)*(P<440):A=G:I=36:T=1:GOSUB 10:G=0:IF L=3 THEN IF Y=1 THEN G=60+FNRR(N):A=G:I=227:T=7:GOSUB 10
+8IF S=32 THEN IF F<9 THEN I=S:FOR E=0 TO 1:A=P-1+E*2:GOSUB 10:A=P+B*E-H:GOSUB 10:NEXT:F=F+1:I=227:A=P:GOSUB 10:INK 0,3
+9ON-((U>0)AND(B(P)<>M)) GOTO 3:U=U-1:SOUND 1,999,9:F=0:T=3:A=P:I=227:GOSUB 10:ON-(U>0) GOTO 3:CALL &BB18:Q=0:GOTO 1
+10B(A)=I:X=1+A MOD H:LOCATE X,1+A\H:PEN T:?CHR$(I):IF Q THEN RETURN:ELSE PEN 8:LOCATE X,3:?W$:LOCATE X,24:?W$:RETURN
+
+
+[TRICK] [*]
+I have come up with this trick (by myself) in 2019. It may be a new trick.
+I do not use conditionals, nor precomputed offsets, nor Boolean expressions.
+I use an interpolating formula that computes the offset from the ASCII code of the pressed key.
+
+I exploit the special symmetry of the ASCII codes of the keys I J K L:
+- I and K have odd codes and a distance of 2 bytes
+- J and L have even codes and a distance of 2 bytes
+- I and K have odd ASCII codes
+- J and L have even ASCII codes
+So, given s=ASC(a$) with a$ either I or J or K or L, we update the position p with
+p=p+c*(19*e+1) 
+where
+- e=s and 1 -> parity of the code, i.e., vertical vs horizontal movement
+- c=s-75+e -> -1 for left/up vs +1 for right/down
+- 19*e+1 -> vertical vs horizontal offset absolute value, i.e., 1 vs 20 
