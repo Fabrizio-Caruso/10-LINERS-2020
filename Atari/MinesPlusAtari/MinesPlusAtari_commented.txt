@@ -1,0 +1,191 @@
+VARIABLES
+O initial position of the upper border
+D initial position of the lower border
+M mine character
+W anti-mine character $
+J score
+R record
+Q probability of not generating a new random mine
+Y flag for IJKL key-pressed
+G position of the new anti-mine charge
+P player's position
+F number of used anti-mine charges
+U number of lives
+S code of the pressed key-pressed
+N(S) offset array that maps the pressed key to the player's position offset
+K counter of the next extra life threshold
+
+EXTENDED CODE
+0A=PEEK(106)-4:POKE106,A:GRAPHICS17:U=256*A:FORI=20TO432:POKEU+I,PEEK(57344+I):NEXTI:FORI=64TO79:READJ:POKEU+I,J:NEXTI:H=400
+1DIMN(255):POKE756,A:M=47:FORI=0TO4:READL:POKE708+I,L:NEXTI:B=PEEK(88)+PEEK(89)*256:O=B+59:D=B+460:T=B+250:E=10:L=764
+2P=T:PRINT#6;"}USE IJKL SPACE":K=1:Q=.9:G=B:U=3:J=0:FORI=0TO127:N(I)=0:N(I+128)=0:POKEO+1+INT(RND(0)*H),M:NEXTI:POKEL,9
+3N(0)=1:N(5)=20:N(13)=-20:N(1)=-1:W=132:POSITION6,1:PRINT#6;" νιξεσ ":FORI=0TO19:POKEO-I,73:POKED+I,73:NEXTI:DATA0,60,126,126
+4SETCOLOR4,0,0:R=J*(J>R)+R*(J<=R):POSITION1,0:PRINT#6;9-F;" ";U;"  ";J;"  hi ";R:IFPEEK(P)=W THENJ=J+9:F=F-(F>0):SOUND0,W,E,E
+5A=E+32*K*(K<8):Y=0:IFQ<RND(0)THENPOKEP-4+2*INT(RND(1)*5)+40*INT(RND(1)*3)-40,M:IFJ>=K*500 THENU=U+(U<9):K=K+1:F=0
+6SOUND0,0,0,0:POKEP,200:S=PEEK(L):IFS<>9THENPOKEL,9:IFN(S)THENPOKEP,M:P=P+N(S):J=J+1:Y=1:Q=Q-.0005:SOUND0,99,E,E:DATA126
+7POKEG,W:G=B:IFY*(INT(J/4)=J/4)THENG=O+1+INT(RND(1)*H):POKEG,68:DATA126,60,0,0,170,85,170,85,170,85,0,14,120,30,30,0
+8U=(P>O)*(P<D)*U:IFS=33ANDF<9THENPOKEP,8:POKEP-1,0:POKEP+1,0:POKEP-20,0:POKEP+20,0:F=F+1:SETCOLOR4,M,0:SOUND0,200,6,1:GOTO3
+9POKE711,A:ON((PEEK(P)<>M)*(U>0))GOTO4:SOUND0,99,8,9:POKEP,202:U=U-1:F=0:ON(U>0)GOTO4:SOUND0,0,0,0:FORI=0TOH*8:NEXTI:GOTO2
+
+
+COMMENTED, EXTENDED, INDENTED CODE
+0
+
+// Set memory
+A=PEEK(106)-4:POKE106,A:
+
+// Set graphics mode
+GRAPHICS17:
+
+// Initialization
+U=256*A:
+
+// Read characters data from ROM
+FORI=20TO432:POKEU+I,PEEK(57344+I):NEXTI:
+
+// Read graphics data to redefine 2 characters for the player and the wall
+FORI=64TO79:READJ:POKEU+I,J:NEXTI:
+
+// Initialization 
+H=400
+
+1
+
+// Initialization
+DIMN(255):
+
+//
+POKE756,A:
+
+// Initialization
+M=47:
+
+// Read color settings from data lines
+FORI=0TO4:READL:POKE708+I,L:NEXTI:
+
+// Initialization
+B=PEEK(88)+PEEK(89)*256:O=B+59:D=B+460:T=B+250:E=10:L=764
+
+2
+
+//
+P=T:
+
+// Display instructions
+PRINT#6;"}USE IJKL SPACE":
+
+// Initialization 
+K=1:Q=.9:G=B:U=3:J=0:
+
+// Display initial mines and initialize zero values in N(I)
+FORI=0TO127:N(I)=0:N(I+128)=0:POKEO+1+INT(RND(0)*H),M:NEXTI:POKEL,9
+
+    3 -- GAME LOOP when charge is used
+
+    // Initialize non-zero values of N(I)
+    N(0)=1:N(5)=20:N(13)=-20:N(1)=-1:
+
+    // Initialization
+    W=132:
+
+    // Display MINES in red color
+    POSITION6,1:PRINT#6;" νιξεσ ":
+
+    // Display walls
+    FORI=0TO19:POKEO-I,73:POKED+I,73:NEXTI:
+    DATA0,60,126,126
+
+    4 -- MAIN GAME LOOP
+    
+    // Set colors
+    SETCOLOR4,0,0:
+
+    // Set record
+    R=J*(J>R)+R*(J<=R):
+
+    // Display score
+    POSITION1,0:PRINT#6;9-F;" ";U;"  ";J;"  hi ";R:
+
+    // If player on anti-mine charge then increase score, decrease used charges if not zero, beep
+    IFPEEK(P)=W THEN
+        J=J+9:
+        F=F-(F>0):
+        SOUND0,W,E,E
+
+    5
+
+    // Compute player's color
+    A=E+32*K*(K<8):
+
+    // Re-set flag for pressed IJKL key to zero (no IJKL key pressed)
+    Y=0:
+
+    // With probability 1-Q, generate a new random mine around the player
+    IFQ<RND(0)THENPOKEP-4+2*INT(RND(1)*5)+40*INT(RND(1)*3)-40,M:IFJ>=K*500 THENU=U+(U<9):K=K+1:F=0
+
+    6 
+
+    // No sound
+    SOUND0,0,0,0:
+
+    // Display player
+    POKEP,200:
+
+    // Read code of pressed key
+    S=PEEK(L):
+
+    // If key pressed, reset to 9 
+    IFS<>9THENPOKEL,9:
+
+    // If key-pressed, then display mine at player's position, change player's position, increase score, set IJKL key flag, decrease probability Q, beep
+    IFN(S)THEN
+        POKEP,M:
+        P=P+N(S):
+        J=J+1:
+        Y=1:
+        Q=Q-.0005:
+        SOUND0,99,E,E:
+        DATA126
+
+    7
+
+    // Display anti-mine charge
+    POKEG,W:
+
+    // Set anti-mine charge position to score line
+    G=B:
+
+    // Every 4th step, generate a new anti-mine charge, display it in blue color
+    IFY*(INT(J/4)=J/4)THEN
+        G=O+1+INT(RND(1)*H):
+        POKEG,68:
+        DATA126,60,0,0,170,85,170,85,170,85,0,14,120,30,30,0
+
+    8
+
+    // If player on border, set number of lives to zero
+    U=(P>O)*(P<D)*U:
+
+    // If space bar pressed and charges left, then change plater's color, destroy items around the player, increase number of used charges, flash, beep, go back to line 3
+    IFS=33ANDF<9THEN
+        POKEP,8:POKEP-1,0:POKEP+1,0:POKEP-20,0:POKEP+20,0:F=F+1:SETCOLOR4,M,0:SOUND0,200,6,1:GOTO3
+
+    9
+
+    POKE711,A:
+
+// If lives left and player not on mine, go back to line 4
+ON((PEEK(P)<>M)*(U>0))
+    GOTO4:
+// Otherwise beep, display player, decrease number of lives, reset number of charges to max (0 used)
+    SOUND0,99,8,9:
+    POKEP,202:
+    U=U-1:
+    F=0:
+    // If lives left, go back to line 4
+    ON(U>0)
+        GOTO4:
+    // Else beep, pause, restart game from line 2
+        SOUND0,0,0,0:
+        FORI=0TOH*8:NEXTI:
+        GOTO2
