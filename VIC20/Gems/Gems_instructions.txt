@@ -1,0 +1,17 @@
+GEMS
+
+Original game idea by Fabrizio Caruso
+
+This is an action game.
+
+Four type of gems are spawned randomly on the screen.
+
+You can only score points if you touch 3 or more gems of the same type (and color).
+The number of points increases significantly if the sequence is longer than 3.
+
+You need to avoid two enemies that will force you to move all the time and will lose destroy any gem they encounter.
+
+
+
+CONTROLS:
+- Use I J K L to move 

@@ -1,0 +1,22 @@
+NEED for VIC
+
+Original game idea by Fabrizio Caruso
+
+This is a action game.
+
+You need to overtake all the cars, the guard-rails and the trees.
+
+If you touch a car or a guardrail, your car's damage increase.
+
+If the damage reaches level 9, your game ends.
+
+With time, your damage will decrease very slowly.
+
+If you bump into a tree, you get max damage and your game ends instantly.
+
+The road becomes narrower as you advance in the game.
+
+The game never ends.
+
+CONTROLS:
+- Use J L to move 

@@ -1,0 +1,23 @@
+ENCHANTED FOREST
+
+Original game idea by Fabrizio Caruso
+
+This is an memory game.
+
+You need to find 10 hearts in the forest at night.
+You have the chance to see the positions of the hearts and the deadly skulls during the day.
+
+At night you will only discover the area around you as you move in the forest.
+
+You have a limited amount of energy, which decreases as you move.
+For each heart reached you restore part of your energy.
+If you 
+- either finish the energy or 
+- reach the top or bottom limits or 
+- touch a skull, 
+you die immediately.
+
+If you find 10 hearts, you go to the next forest (with more trees).
+
+CONTROLS:
+- Use I J K L to move 

@@ -1,0 +1,26 @@
+SPACE JOURNEY
+
+Original game idea by Fabrizio Caruso
+
+This is a action game.
+
+You are on a space journey though the asteroid belt. 
+You have to avoid the ever-increasing asteroids or destroy them with your missiles.
+
+You have a limited number of missiles. You can only carry a maximum of 9. 
+You start with 5 missles and 3 lives.
+
+If you are hit by an asteroid, you lose a life.
+
+You can collect 3 types of items:
+- [common] extra missile
+- [rare] space bomb: it destroys all asteroids on the screen
+- [very rare] extra life
+
+
+The number of asteroids increase as you progress into the asteroid belt.
+The game never ends.
+
+CONTROLS:
+- Use J L to move 
+- SPACE to fire a missile
