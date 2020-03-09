@@ -97,32 +97,79 @@ C=128
 // Wait for space bar pressed
 IFSTRIG(0)=0GOTO3
 
-4
+4 -- MAIN GAME LOOP
 
-// Set number of generated good cells
-Y=Y+L:
+    // Set number of generated good cells
+    Y=Y+L:
 
-// Display score, record, time
-LOCATE0,0:?"SCORE"J"  HI"R" TI"H
+    // Display score, record, time
+    LOCATE0,0:?"SCORE"J"  HI"R" TI"H
 
-// Read status of the cursor keys
-S=STICK(0):
+    // Read status of the cursor keys
+    S=STICK(0):
 
-// With 1-Z probability, generate a new energizing
-IFRND(N)>ZTHENVPOKEX,191
+    // With 1-Z probability, generate a new energizing
+    IFRND(N)>ZTHENVPOKEX,191
 
-5
-// Decrease the probability of not generating new spontaneous virus cells and new energizing cells
-Z=Z-.0001:
+    5
+    // Decrease the probability of not generating new spontaneous virus cells and new energizing cells
+    Z=Z-.0001:
 
-// If cursor-key pressed, then delete player, compute new position, if new position not on virus cell, then update position
-IFSTHEN
-    VPOKEP,N:
-    Q=P+(S=7)-(S=3)+N*(S=1)-N*(S=5):
-    IFVPEEK(Q)<>MTHEN
-        P=Q
+    // If cursor-key pressed, then delete player, compute new position, if new position not on virus cell, then update position
+    IFSTHEN
+        VPOKEP,N:
+        Q=P+(S=7)-(S=3)+N*(S=1)-N*(S=5):
+        IFVPEEK(Q)<>MTHEN
+            P=Q
 
-6VPOKE8215,V+K:X=O+33+FNR(608):IFVPEEK(P)=191THENY=MELSEIFRND(N)>ZTHENVPOKEX,M
-7K=16*(HAND1):H=H+1:IFVPEEK(P)=WTHENJ=J+1:FORI=0TOY:VPOKEO+1+FNR(672),W:NEXT:H=0
-8L=(Y>4):VPOKEP,2:IFVPEEK(X)=MTHENVPOKEX-1,M:VPOKEX+1,M:VPOKEX-N,M:VPOKEX+N,M
-9VPOKEB,A-C*L:ON-(P<DANDP>OANDH<99)GOTO4:?"GAME OVER":BEEP:FORI=0TOB:NEXT:GOTO0
+    6
+
+    // Set 
+    VPOKE8215,V+K:
+
+    // Compute position of candidate pivot virus or power-up 
+    X=O+33+FNR(608):
+
+    // If player on power-up, then increase player's power to M (15)
+    IFVPEEK(P)=191THEN
+        Y=M
+    // Otherwise with probability 1-Z, create a new virus cell
+    ELSEIFRND(N)>ZTHEN
+        VPOKEX,M
+
+    7
+
+    // Compute color code for player (yellow if under the effect of the power-up, green otherwise)
+    K=16*(HAND1):
+
+    // Increase time
+    H=H+1:
+
+    // If player on good cell, then increase score, generate Y+1 good cells at random positions, reset time to zero
+    IFVPEEK(P)=WTHEN
+        J=J+1:
+        FORI=0TOY:VPOKEO+1+FNR(672),W:NEXT:
+        H=0
+
+    8
+
+    // Compute flag for power-up (-1) and not on power-up (0)
+    L=(Y>4):
+
+    // Display player
+    VPOKEP,2:
+
+    // If random point X on a virus cell, then multiply this cell by four
+    IFVPEEK(X)=MTHEN
+        VPOKEX-1,M:VPOKEX+1,M:VPOKEX-N,M:VPOKEX+N,M
+
+    9
+
+    // Set player's color
+    VPOKEB,A-C*L:
+
+// If time has not reached 99, or player not on border, then restart main loop
+ON-(P<DANDP>OANDH<99)
+    GOTO4:
+// Otherwise, display "GAME OVER", beep, pause, restart game
+    ?"GAME OVER":BEEP:FORI=0TOB:NEXT:GOTO0
