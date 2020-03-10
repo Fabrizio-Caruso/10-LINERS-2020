@@ -15,7 +15,7 @@ S code of the pressed key-pressed
 N(S) offset array that maps the pressed key to the player's position offset
 K counter of the next extra life threshold
 
-EXTENDED CODE
+EXTENDED CODE (using Altirra notation for special characters as produced by LIST"H6:<file name>")
 0A=PEEK(106)-4:POKE106,A:GRAPHICS17:U=256*A:FORI=20TO432:POKEU+I,PEEK(57344+I):NEXTI:FORI=64TO79:READJ:POKEU+I,J:NEXTI:H=400
 1DIMN(255):POKE756,A:M=47:FORI=0TO4:READL:POKE708+I,L:NEXTI:B=PEEK(88)+PEEK(89)*256:O=B+59:D=B+460:T=B+250:E=10:L=764
 2P=T:PRINT#6;"}USE IJKL SPACE":K=1:Q=.9:G=B:U=3:J=0:FORI=0TO127:N(I)=0:N(I+128)=0:POKEO+1+INT(RND(0)*H),M:NEXTI:POKEL,9
