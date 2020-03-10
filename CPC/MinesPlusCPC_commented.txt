@@ -16,10 +16,9 @@ S ASCII code of the pressed key
 E vertical vs horizontal movement
 C -1 for left/up movement,  +1 for right/down movement 
 
-
-COMMENTED, EXTENDED, INDENTED CODE
-1DEFINT A-W:MODE 0:B=40:W=231:LOCATE 1,1:?"IJKL SPC":D=500:BORDER 0:Z=.8:DEF FNRR(X)=RND(1)*X:H=20:IF J=0 THEN DIM B%(D)
-2U=3:M=230:N=400:W$=CHR$(207):K=1:I=M:P=M:J=0:FOR A=0 TO D:B(A)=0:NEXT:T=4:FOR O=60 TO 79:A=O+H*FNRR(H):GOSUB 10:NEXT
+CODE
+1DEFINT A-W:MODE 0:B=40:W=231:H=20:LOCATE 1,1:?"IJKL SPC":D=500:BORDER 0:Z=.8:DEF FNRR(X)=RND(1)*X:IF J=0 THEN DIM B%(D)
+2U=3:M=230:N=400:W$=CHR$(207):K=1:I=M:P=M:J=0:T=4:FOR A=0 TO D:B(A)=0:NEXT:FOR O=60 TO 79:A=O+H*FNRR(H):GOSUB 10:NEXT
 3LOCATE 2,1:PEN 9:?9-F;:PEN 10:?CHR$(W);:PEN 8:?U;:PEN 4:?J;:PEN 2:?R:IF B(P)=36 THEN SOUND 1,D,4:J=J+9:F=F+(F>0)
 4IF RND(1)>Z THEN A=P-4+2*FNRR(4)+B*FNRR(1-(P<395))-B:I=M:T=4:GOSUB 10:PEN 3:LOCATE 7,2:?" MINES+ ":Z=Z-.0005
 5U=U*(P<460)*(P>59):L=J AND 3:A=P:I=W:T=9+K MOD 3:GOSUB 10:Y=0:IF J>R THEN R=J: ELSE IF J>=K*D THEN K=K+1:F=0:U=U-(U<9)
@@ -29,6 +28,89 @@ COMMENTED, EXTENDED, INDENTED CODE
 9ON-((U>0)AND(B(P)<>M)) GOTO 3:U=U-1:SOUND 1,999,9:F=0:T=3:A=P:I=227:GOSUB 10:ON-(U>0) GOTO 3:CALL &BB18:Q=0:GOTO 1
 10B(A)=I:X=1+A MOD H:LOCATE X,1+A\H:PEN T:?CHR$(I):IF Q THEN RETURN:ELSE PEN 10:LOCATE X,3:?W$:LOCATE X,24:?W$:RETURN
 
+
+COMMENTED, EXTENDED, INDENTED CODE
+
+1
+
+// Declare integer variables
+DEFINT A-W:
+
+MODE 0:
+// Initialization
+B=40:W=231:H=20:
+
+// Display instructions
+LOCATE 1,1:?"IJKL SPC":
+
+// Initialization
+D=500:
+
+// Set border color
+BORDER 0:
+
+// Initialize probability not to generate a new random mine
+Z=.8:
+
+// Define random number generating function
+DEF FNRR(X)=RND(1)*X:
+
+// Declare integer array B(D)
+IF J=0 THEN DIM B%(D)
+
+2
+
+// Initialization
+U=3:M=230:N=400:W$=CHR$(207):K=1:I=M:P=M:J=0:T=4:
+
+// Initialize 0 values in array B(A)
+FOR A=0 TO D:B(A)=0:NEXT:
+
+// Generate initial random mines
+FOR O=60 TO 79:A=O+H*FNRR(H):GOSUB 10:NEXT
+
+
+3
+
+// Display number of left charges, left lives, score, record
+LOCATE 2,1:PEN 9:?9-F;:PEN 10:?CHR$(W);:PEN 8:?U;:PEN 4:?J;:PEN 2:?R:
+
+// If player on charge, then beep, increase score, decrease number of used charges if not yet zero
+IF B(P)=36 THEN
+    SOUND 1,D,4:J=J+9:F=F+(F>0)
+
+4
+
+// With probability 1-Z generate a new random mine around the player
+IF RND(1)>Z THEN 
+    A=P-4+2*FNRR(4)+B*FNRR(1-(P<395))-B:I=M:T=4:GOSUB 10:PEN 3:
+    
+    // Display " MINES+ "
+    LOCATE 7,2:?" MINES+ ":
+    
+    // Decrease probability Z
+    Z=Z-.0005
+
+5
+
+// If player on wall, then set number of lives to zero
+U=U*(P<460)*(P>59):
+
+// Compute cyclic charge counter (to decide when a new charge is spawned)
+L=J AND 3:
+
+// Display player
+A=P:I=W:T=9+K MOD 3:GOSUB 10:
+
+// Set Y flag to IJKL key pressed not pressed
+Y=0:
+
+// Check record and set it if necessary
+IF J>R THEN 
+    R=J: 
+// Else if next extra-life threshold is reached, then increase extra life threshold counter, reset used charges, increase lives if not already max
+ELSE IF J>=K*D THEN 
+    K=K+1:F=0:U=U-(U<9)
 
 [TRICK] [*]
 I have come up with this trick (by myself) in 2019. It may be a new trick.
