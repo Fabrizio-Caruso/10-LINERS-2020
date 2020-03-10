@@ -14,14 +14,13 @@ EXTENDED CODE
 0e=100:color0,1:r$="return":z=1:v=1:fori=1to5:w(i)=4:readj$(i),m$(i),p(i),e$(i):v(i)=2+i+4*(iand1):data"{light green}forest","{cyan}potion{yellow}":next
 1deffnf(x)=int(n*n*x*x/(9+rnd(1)*18)):g=e:b=8:f=1:data50,"{light green}trolls","{brown}cave","{light green}boots{yellow}",100,"{orange}orcs","{green}dark woods","{brown}armor{yellow}",300
 2color4,1:gosub9:print"{orange}-<the inn>-":fori=1to4:print"{white}"i;j$(i):next:inputj:on-(j<4andj>.)goto4:gosub9:printj$(4):fori=1to3:print"{white}"i"{dark gray}"w(i)m$(i)p(i)
-3next:print" {white}4 "m$(4):inputj:on-(j=4org<p(j)orw(j)=.)goto2:e=e+(j=1)*(w(1)>.)*25:b=b-(j=2)*10:z=z-(j=3):g=g-p(j):w(j)=w(j)-1:goto2
-4w=20:fork=.to1:fori=1toj*3:gosub9:printj$(j):print"{down}{white}day{gray}"i;q$:r=1+rnd(1)*(j+1):n=2+int(rnd(1)*(2*j+t)):print"you are attacked by"n;e$(r)
-5g$="ou and take":print"{light gray}1.fight":print"2.run":inputa:a=aand1:h=fnf(v(r+1)/(.8+z/5)):h=a*h-f:ifh>.thenprint"{red}you lose"h"p!":e=e-h:vol9:vol.
+3next:print" {white}4 "m$(4):inputj:on-(j=4org<p(j)orw(j)=.)goto2:e=e+(j=1)*(w(1)>.)*10:b=b-(j=2)*10:z=z-(j=3):g=g-p(j):w(j)=w(j)-1:goto2
+4fork=.to1:fori=1toj*3:gosub9:printj$(j):print"{down}{white}- day - {gray}"i;q$:r=1+rnd(1)*(j+1):n=2+int(rnd(1)*(2*j+t)):print"you are attacked by"n;e$(r)
+5g$="ou and take":print"{light gray}1.fight":print"2.run":inputa:a=aand1:h=fnf(v(r+1)/(.5+z/2)):h=a*h-f:ifh>.thenprint"{red}you lose"h"p!":e=e-h:vol9:vol.
 6ife<1thenprint"{down}end":sleep3:gosub9:getkeyk$:run:elseifathenprint"{cyan}you kill the "e$(r):f=f+1:p=int(rnd(1)*r*n):print"{cyan}you get {orange}${yellow}"p:g=g+p:sleep1:goto8
 7m=fnf(v(r)):ifm>vandb<1thenx=1+int(m/9/z):print"{red}they grab y"g$;x"p":e=e-x:vol9:vol.:sleep1:goto5:elseprint"{cyan}escaped":sleep1:v=v+1:b=b+(b>.)
-8next:p=j*int(9+rnd(1)*9):ifk=.thent=t+.1-(t>2)-(t>w):q$=r$:print"{clear}{light green}you find {orange}${yellow}"p"{light green}!{007}":g=g+p:sleep2:next:elseq$="":next:w(1)=w(1)+j:goto2
-9print"{clear}{red}S{pink}"e" {red}pw{white}"f"{cyan}sp{white}"v" {light green}bt{green}"b"{brown}ar{light gray}"z"{orange}${yellow}"g:print"{gray}score:{white}";v+f-2:print:return:data"{green}elves","{blue}merchant","{gray} exit",,"{green}werewolves",,,,
-
+8next:p=j*j*int(7+rnd(1)*9):ifk=.thent=t+.2-(t>2)*.2:q$=r$:print"{clear}{light green}you find {orange}${yellow}"p"{light green}!!{007}":g=g+p:sleep2:next:elseq$="":next:w(1)=w(1)+1:goto2
+9print"{clear}{red}S{pink}"e" {red}pw{white}"f"{cyan}sp{white}"v" {light green}bt{green}"b"{brown}ar{light gray}"z"{orange}${yellow}"g:print"{gray}score:{white}";v+f-2:print:return:data"{green}elves","{blue}merchant","{gray} exit",,"{red}werewolves",,,,
 
 COMMENTED, EXTENDED, COMMENTED CODE
 0
@@ -78,6 +77,7 @@ on-(j<4andj>.)
     fori=1to3:
         print"{white}"i"{dark gray}"w(i)m$(i)p(i)
 3
+
     next:
     // Display exit
     print" {white}4 "m$(4):
@@ -90,7 +90,7 @@ on-(j<4andj>.)
         goto2:
     // else
         // Apply effects of the item
-        e=e+(j=1)*(w(1)>.)*25:
+        e=e+(j=1)*(w(1)>.)*10:
         b=b-(j=2)*10:
         z=z-(j=3):
         
@@ -104,9 +104,6 @@ on-(j<4andj>.)
         
 4
 
-// Initialize threshold
-w=20:
-
 // Start quest 
 fork=.to1:
     fori=1toj*3:
@@ -116,7 +113,7 @@ fork=.to1:
         // Display the quest name
         printj$(j):
         // Display the day
-        print"{down}{white}day{gray}"i;q$:
+        print"{down}{white}- day - {gray}"i;q$:
         
         // Compute enemy type
         r=1+rnd(1)*(j+1):
@@ -127,6 +124,7 @@ fork=.to1:
         // Display message about attacking enemies
         print"you are attacked by"n;e$(r)
 5
+
         // Initialization
         g$="ou and take":
         
@@ -141,7 +139,7 @@ fork=.to1:
         a=aand1:
         
         // Compute attack power of the enemies
-        h=fnf(v(r+1)/(.8+z/5)):
+        h=fnf(v(r+1)/(.5+z/2)):
         
         // Compute difference
         h=a*h-f:
@@ -188,18 +186,19 @@ fork=.to1:
             v=v+1:
             b=b+(b>.)
 8
+
     next:
     // compute bonus found
-    p=j*int(9+rnd(1)*9):
+    p=j*int(7+rnd(1)*9):
     
     // if in the first round of the game (not on the return trip) 
     ifk=.then
         // Increase counter t to make game gradually harder
-        t=t+.1-(t>2)-(t>w):
+        t=t+.1-(t>2)*.2:
         // Change string to display return on next round
         q$=r$:
         // Display message about the found money and produce a longer higher-pitched beep by printing character 7
-        print"{clear}{light green}you find {orange}${yellow}"p"{light green}!{007}":
+        print"{clear}{light green}you find {orange}${yellow}"p"{light green}!!{007}":
         // Increase money
         g=g+p:
         // Pause
@@ -207,17 +206,18 @@ fork=.to1:
 // reset string not to have "RETURN" on the future round
 next:elseq$="":next:
 // Increase the number of potions at the merchant
-w(1)=w(1)+j:
+w(1)=w(1)+1:
 // Go back to line 2
 goto2
 
 9
+
 // Display stats: energy, power, speed, boots, armor, money
 print"{clear}{red}S{pink}"e" {red}pw{white}"f"{cyan}sp{white}"v" {light green}bt{green}"b"{brown}ar{light gray}"z"{orange}${yellow}"g:
 // Display score as the sum of all successful fights and flees
 print"{gray}score:{white}";v+f-2:
 print:
 return:
-data"{green}elves","{blue}merchant","{gray} exit",,"{green}werewolves",,,,
+data"{green}elves","{blue}merchant","{gray} exit",,"{red}werewolves",,,,
 
 
