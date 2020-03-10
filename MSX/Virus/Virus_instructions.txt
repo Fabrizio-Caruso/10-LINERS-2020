@@ -1,0 +1,19 @@
+VIRUS
+
+Original game by Fabrizio Caruso
+
+This is an action game.
+
+You are an antibody fighting against the virus-infected cells (red cells).
+Virus-infected cells will block your movements. If you cannot reach good cells (blue cells), you die.
+The only way to fight against the virus is to digest good cells, in that for each digested cells, you generate 5 or more good cells at random positions.
+In order to temporarily increase the power to reproduce good cells you should reach some energizing cells (yellow-green flashing cells)
+The virus grows around cluster of infected cells.
+If you touch the top or bottom walls, you die.
+The left and right borders wrap around.
+
+The game never ends. The virus becomes increasingly more aggressive.
+
+CONTROLS
+- Cursor keys to move
+- SPACE BAR to (re-)start the game

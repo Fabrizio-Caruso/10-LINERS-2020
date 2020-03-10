@@ -1,0 +1,14 @@
+THE HORDE
+
+Original game idea by Fabrizio Caruso
+
+This is an action game.
+
+You have to stop the horde of zombies that keep on advancing towards you.
+
+If a zombie reaches the line behind you, the game is over.
+
+CONTROLS:
+- Use J L to move 
+- SPACE to fire a missile
+

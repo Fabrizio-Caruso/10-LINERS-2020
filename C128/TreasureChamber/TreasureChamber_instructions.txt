@@ -1,0 +1,16 @@
+TREASURE CHAMBER
+
+This is an original game by Fabrizio Caruso
+
+This is an action game.
+
+You have reached the treasure chamber where jewels are spawned at random position.
+Collect as many jewels as you can, while escaping the 7 ghosts.
+The enemies follow you by a strategy of zone marking. Each skull has a pre-assigned zone.
+
+You start with an energy level of 8.
+When your energy reaches 0, the game is over.s
+
+
+CONTROLS
+Use JOYSTICK in PORT 2 to move
