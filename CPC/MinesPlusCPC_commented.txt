@@ -17,16 +17,16 @@ E vertical vs horizontal movement
 C -1 for left/up movement,  +1 for right/down movement 
 
 CODE (using JavaCPC notation for special characters as produced by the export function in the BASIC Debugger)
-1DEFINT A-W:B=40:W=231:H=20:D=500:BORDER 0:M=230:N=400:V=440:W$="ǎ":U=2:Z=.9:DEF FNRR(X)=RND(1)*X:IF J=0 THEN DIM B(D)
+1DEFINT A-W:B=40:W=231:H=20:D=500:BORDER 0:M=230:N=400:W$="ǎ":U=2:Z=.9:INK 0,0:DEF FNRR(X)=RND(1)*X:IF J=0 THEN DIM B(D)
 2J=0:MODE 0:PEN 6:LOCATE 1,1:?"IJKL SPC":FOR A=0 TO D:B(A)=0:NEXT:T=4:I=M:P=M:FOR E=60 TO 79:A=E+H*FNRR(H):GOSUB 10:NEXT
 3LOCATE 2,1:PEN 9:?9-F;:PEN 10:?"Ǧ";:PEN 8:?U;:PEN 4:?J;:PEN 2:?R:IF B(P)=36 THEN SOUND 1,V,4:J=J+9:F=F+(F>0)
 4IF RND(1)>Z THEN A=P-4+2*FNRR(4)+B*FNRR(1-(P<395))-B:I=M:T=4:GOSUB 10:PEN 3:LOCATE 7,2:?" MINES+ ":Z=Z-.0005
 5U=U*(P<460)*(P>59):L=J AND 3:A=P:I=W:T=9+K MOD 3:GOSUB 10:Y=0:IF J>R THEN R=J:ELSE IF J>=K*D THEN K=K+1:F=0:U=U-(U<9)
-6S=ASC(INKEY$+"@"):E=S AND 1:C=S-107+E:IF SGN(C)=C THEN Y=1:A=P:I=M:T=4:GOSUB 10:P=P+C*19*E+C:J=J+1:SOUND 1,N,3
-7INK 0,0:Q=(P>79)*(P<V):A=G:I=36:T=1:GOSUB 10:G=0:IF L=3 THEN IF Y=1 THEN G=60+FNRR(N):A=G:I=227:T=7:GOSUB 10
+6INK 0,0:S=ASC(INKEY$+"@"):E=S AND 1:C=S-107+E:IF SGN(C)=C THEN Y=1:A=P:I=M:T=4:GOSUB 10:P=P+C*19*E+C:J=J+1:SOUND 1,N,3
+7Q=(P>79)*(P<440):A=G:I=36:T=1:GOSUB 10:G=0:IF L=3 THEN IF Y=1 THEN G=60+FNRR(N):A=G:I=227:T=7:GOSUB 10
 8IF S=32 THEN IF F<9 THEN I=S:FOR E=0 TO 1:A=P-1+E*2:GOSUB 10:A=P+B*E-H:GOSUB 10:NEXT:F=F+1:I=227:A=P:GOSUB 10:INK 0,3
 9ON-((U>0)AND(B(P)<>M)) GOTO 3:U=U-1:SOUND 3,999,9:F=0:T=3:A=P:I=227:GOSUB 10:ON-(U>0) GOTO 3:CALL &BB18:K=0:Q=0:GOTO 1
-10B(A)=I:X=1+A MOD H:LOCATE X,1+A\H:PEN T:?CHR$(I):IF Q THEN RETURN:ELSE PEN 10:LOCATE X,3:?W$:LOCATE X,24:?W$:RETURN
+10B(A)=I:X=1+A MOD H:LOCATE X,1+A\H:PEN T:?CHR$(I):IF Q THEN RETURN:ELSE PEN 6:LOCATE X,3:?W$:LOCATE X,24:?W$:RETURN
 
 
 COMMENTED, EXTENDED, INDENTED CODE
@@ -38,7 +38,10 @@ DEFINT A-W:
 
 MODE 0:
 // Initialization
-B=40:W=231:H=20:D=500:M=230:N=400:V=440:W$="ǎ":U=2:Z=.9:
+B=40:W=231:H=20:D=500:M=230:N=400:W$="ǎ":U=2:Z=.9:
+
+// Set background color to black
+INK 0,0:
 
 // Set border color
 BORDER 0:
@@ -67,47 +70,121 @@ FOR A=0 TO D:B(A)=0:NEXT:
 T=4:I=M:P=M:FOR O=60 TO 79:A=O+H*FNRR(H):GOSUB 10:NEXT
 
 
-3
+    3 -- MAIN GAME LOOP
 
-// Display number of left charges, left lives, score, record
-LOCATE 2,1:PEN 9:?9-F;:PEN 10:?"Ǧ";:PEN 8:?U;:PEN 4:?J;:PEN 2:?R:
+    // Display number of left charges, left lives, score, record
+    LOCATE 2,1:PEN 9:?9-F;:PEN 10:?"Ǧ";:PEN 8:?U;:PEN 4:?J;:PEN 2:?R:
 
-// If player on charge, then beep, increase score, decrease number of used charges if not yet zero
-IF B(P)=36 THEN
-    SOUND 1,D,4:J=J+9:F=F+(F>0)
+    // If player on charge, then beep, increase score, decrease number of used charges if not yet zero
+    IF B(P)=36 THEN
+        SOUND 1,D,4:J=J+9:F=F+(F>0)
 
-4
+    4
 
-// With probability 1-Z generate a new random mine around the player
-IF RND(1)>Z THEN 
-    A=P-4+2*FNRR(4)+B*FNRR(1-(P<395))-B:I=M:T=4:GOSUB 10:PEN 3:
-    
-    // Display " MINES+ "
-    LOCATE 7,2:?" MINES+ ":
-    
-    // Decrease probability Z
-    Z=Z-.0005
+    // With probability 1-Z generate a new random mine around the player
+    IF RND(1)>Z THEN 
+        A=P-4+2*FNRR(4)+B*FNRR(1-(P<395))-B:I=M:T=4:GOSUB 10:PEN 3:
+        
+        // Display " MINES+ "
+        LOCATE 7,2:?" MINES+ ":
+        
+        // Decrease probability Z
+        Z=Z-.0005
 
-5
+    5
 
-// If player on wall, then set number of lives to zero
-U=U*(P<460)*(P>59):
+    // If player on wall, then set number of lives to zero
+    U=U*(P<460)*(P>59):
 
-// Compute cyclic charge counter (to decide when a new charge is spawned)
-L=J AND 3:
+    // Compute cyclic charge counter (to decide when a new charge is spawned)
+    L=J AND 3:
 
-// Display player
-A=P:I=W:T=9+K MOD 3:GOSUB 10:
+    // Display player
+    A=P:I=W:T=9+K MOD 3:GOSUB 10:
 
-// Set Y flag to IJKL key pressed not pressed
-Y=0:
+    // Set Y flag to IJKL key pressed not pressed
+    Y=0:
 
-// Check record and set it if necessary
-IF J>R THEN 
-    R=J:
-// Else if next extra-life threshold is reached, then increase extra life threshold counter, reset used charges, increase lives if not already max
-ELSE IF J>=K*D THEN 
-    K=K+1:F=0:U=U-(U<9)
+    // Check record and set it if necessary
+    IF J>R THEN 
+        R=J:
+    // Else if next extra-life threshold is reached, then increase extra life threshold counter, reset used charges, increase lives if not already max
+    ELSE IF J>=K*D THEN 
+        K=K+1:F=0:U=U-(U<9)
+
+    6
+
+    // Reset background color to black
+    INK 0,0:
+
+    // Read keyboard
+    S=ASC(INKEY$+"@"):
+
+    // IJKL trick (See [*])
+    E=S AND 1:C=S-107+E:
+    // IJKL trick: if IJKL key pressed, then set flag Y, draw mine at player's position, update player's position, increase score, beep
+    IF SGN(C)=C THEN 
+        Y=1:
+        A=P:I=M:T=4:GOSUB 10:
+        P=P+C*19*E+C:
+        J=J+1:
+        SOUND 1,N,3
+
+    7
+
+    // Compute Boolean to decide whether the border needs to be redrawn in the display routine (line 10)
+    Q=(P>79)*(P<440):
+
+    // Draw new charge 
+    A=G:I=36:T=1:GOSUB 10:
+
+    // Reset charge position to left top corner
+    G=0:
+
+    // If L reaches 3 and IJKL key has been pressed, then compute new 
+    IF L=3 THEN IF Y=1 THEN 
+        G=60+FNRR(N):A=G:I=227:T=7:GOSUB 10
+
+    8
+
+    // If space bar pressed and if charges left, then delete cells around the player, increase used charges, display charge as diamond, change background color
+    IF S=32 THEN IF F<9 THEN 
+        I=S:
+        FOR E=0 TO 1:A=P-1+E*2:GOSUB 10:A=P+B*E-H:GOSUB 10:NEXT:
+        F=F+1:
+        I=227:A=P:GOSUB 10:
+        INK 0,3
+
+9
+// If lives left and player not on a mine, then go back to line 3
+ON-((U>0)AND(B(P)<>M)) 
+    GOTO 3:
+// Otherwise, decrease lives, beep, reset number of used charges to 0, display player
+    U=U-1:
+    SOUND 3,999,9:
+    F=0:
+    T=3:A=P:I=227:GOSUB 10:
+    // If lives left, go back to 3
+    ON-(U>0) 
+        GOTO 3:
+    // Else wait for key-press, restart extra life counter and Q flag, go back to line 1
+        CALL &BB18:
+        K=0:
+        Q=0:
+        GOTO 1
+        
+10
+
+B(A)=I:
+X=1+A MOD H:
+LOCATE X,1+A\H:
+PEN T:?CHR$(I):
+IF Q THEN 
+    RETURN:
+ELSE 
+    PEN 6:LOCATE X,3:?W$:LOCATE X,24:?W$:
+    RETURN
+
 
 [TRICK] [*]
 I have come up with this trick (by myself) in 2019. It may be a new trick.
