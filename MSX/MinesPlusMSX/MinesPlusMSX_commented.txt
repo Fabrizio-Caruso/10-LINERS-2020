@@ -13,6 +13,7 @@ S ASCII code of the pressed key
 E vertical vs horizontal movement
 C -1 for left/up movement,  +1 for right/down movement 
 
+
 CODE
 0M=248:SCREEN1:O=6207:P=6544:X=672:U=8196:Q=.9:N=32:K=0:D=6880:W=36:IFJ>RTHENR=J
 1T=500:KEYOFF:J=0:DEFFNR(X)=INT(RND(N)*X):V=2:FORI=0TOW:VPOKEO+1+FNR(X),M:NEXT

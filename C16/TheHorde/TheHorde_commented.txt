@@ -14,7 +14,7 @@ r record
 n index of zombie on the arrow trajectory
 
 
-EXTENDED CODE
+EXTENDED CODE (using CBM Prg Studio notation for special characters)
 0poke52,31:poke56,31:clr:s=40:dime(s):poke1177,62:fori=8to519:poke8192+i,peek(53248+i):next
 1color.,1:color4,1:reada$:fori=.to31:poke8512+i,asc(mid$(a$,i+1))-1:next:poke1177,63:z=65298:vol6
 2l=32:pokez+1,l:pokez,.:u=920:print"{clear}{white}j l {gray}[spc]":b=80:p=3152:g=p-b:getkeyk$:scnclr:ifj>rthenr=j

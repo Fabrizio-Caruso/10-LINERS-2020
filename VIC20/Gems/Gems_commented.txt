@@ -19,8 +19,7 @@ e vertical vs horizontal movement
 c -1 for left/up movement,  +1 for right/down movement 
 
 
-EXTENDED CODE
-
+EXTENDED CODE (using CBM Prg Studio notation for special characters)
 0l=32:v=36878:fork=.to4:readb$:fori=1to8:poke7167+i+k*8,asc(mid$(b$,i)):poke7421+i,.:next:next
 1poke52,26:poke56,26:n=1:t=30720:pokev-9,255:pokev+1,8:print"{clear}{reverse on}{yellow}ijkl":x=3:p=7955:ifj>rthenr=j
 2wait198,1:g(0)=211:g(1)=209:g(2)=215:g(3)=218:poke650,128:u=22:k=7745:y=7732:z=y-8

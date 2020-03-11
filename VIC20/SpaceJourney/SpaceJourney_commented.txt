@@ -11,15 +11,14 @@ r record
 t offset to access corresponding screen color ram
 
 
-EXTENDED CODE
-
+EXTENDED CODE (using CBM Prg Studio notation for special characters)
 0forb=.to4:readb$:forp=1to8:poke7167+b*8+p,asc(mid$(b$,p))-1:poke7421+p,.:next:next:ifi>rthenr=i
 1i=.:l=3:q=32:y=22:v=36878:p=8174:n=v+1:poken,8:pokev-9,255:m=5:print"{clear}{reverse on}{white}jl spc":wait198,1
 2poke56,26:poke52,26:x=132:t=30720:poken,127:poke650,128:j$="{home}{down}":g=8163:u=218:print"{clear}":poken,8
 3i=i+1:b=i/512:fork=.tob:printj$tab(rnd(.)*21)c$:next:if(iand127)=.thenb$="{yellow}{66}":data"{ 25}{ 37}{ 25}{ 61}{166}{166}{166}{154}"
 4if(iand31)=.thens=rnd(.)*21:printj$tab(s)b$;:if(iand511)=.thenprinttab(s)"{left}{green}{64}":data"{  1}{  9}{ 29}{ 29}{ 29}{ 43}{  1}{  1}"
 5c=peek(p-y):ifc<5thenpokev,15:pokev,.:ifc>2thenl=l-1:pokep+t,4:forh=.to999:m=5:next:if(l>.)goto2
-6f=.:geta$:ifa$<>""thenf=asc(a$):k=p+(f=74)-(f=76):ifk<8185thenifk>gthenp=k:data"{  1}{ 37}{ 91}{ 53}{ 45}{ 91}{ 37}{  1}"
+6f=.:geta$:ifa$<>""thenf=asc(a$):k=p+(f=74)-(f=76):ifk<8185thenifk>gthenp=k:data"{166}{091}{166}{091}{091}{166}{091}{166}"
 7print"{home}{down}{left}{148}":pokeu,x:pokep+t,2:pokep,.:iff=qthenifm>.thenm=m-1:forh=1to9:pokep-y*h,1:pokep-y*h,q:next
 8b$="{cyan}{65}":print"{home}{red}@{reverse on}{white}"l"{reverse off}{cyan}a{reverse on}"m"{white}"i"{blue}"r:ifc<2thenm=m-(m<9):ifl<9thenl=l-(c=.):data"{ 11}{ 22}{ 11}{ 32}{ 24}{ 30}{ 32}{15}"
 9c$="{white}"+chr$(67+(iand1)):on-(c=2)goto2:on-(l>.)goto3:poke198,.:restore:goto0:data"{ 43}{ 21}{ 63}{ 59}{ 47}{ 63}{ 59}{ 29}"
@@ -117,7 +116,7 @@ print"{clear}{reverse on}{white}jl spc":wait198,1
     ifa$<>""thenf=asc(a$):k=p+(f=74)-(f=76):
         // if new position is not beyond the limits than set spaceship's position to new position
         ifk<8185thenifk>gthenp=k:
-        data"{  1}{ 37}{ 91}{ 53}{ 45}{ 91}{ 37}{  1}"
+        data"{166}{091}{166}{091}{091}{166}{091}{166}"
 
     7
     // (Ab-)use editor to produce a scroll-down 

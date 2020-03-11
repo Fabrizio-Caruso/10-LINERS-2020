@@ -14,7 +14,7 @@ q counter (to be used to increase enemy speed)
 j joystick status
 
 
-EXTENDED CODE
+EXTENDED CODE (using CBM Prg Studio notation for special characters)
 0e=8:t=32:b=56:color.,1:color4,1:y=146:fori=1to7:x(i)=b:y(i)=t:next:w=1524:g=40:x=180
 1o=1143:z=19:f=86:s=128:r=2047:print"{light green}{clear}{cyan}joy2":reada$:fori=.totstepe:c=3581+i*8:fork=3to66
 2pokec+k,.:next:fork=1to8:pokec+3*k,asc(mid$(a$,i+k)):next:next:h=9:d=4:fori=1toe:poke2039+i,b

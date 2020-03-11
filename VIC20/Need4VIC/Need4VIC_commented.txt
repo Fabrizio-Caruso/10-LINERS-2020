@@ -13,7 +13,7 @@ l$ left road border with guard-rail and trees
 r$ right road border with guard-rail and trees
 
 
-EXTENDED CODE
+EXTENDED CODE (using CBM Prg Studio notation for special characters)
 0poke56,26:poke52,26:v=36878:x=132:pokev-9,255:forp=.to39:readb:poke7168+p,b:poke7421+p,.:next
 1e=22:z=218:o=4:y=3:b=7:p=8174:poke650,z:print"{clear}{black}{reverse on}jl":l$="{green}{68*2}{black}{66}":r$="{black}{67}{green}{68*2}":ifi>rthenr=i
 2n=v+1:t=30720:poken,59:wait198,1:print"{clear}":fori=3toe:printtab(4)"{green}{68}{black}{reverse on}{230}{191}"spc(8)"{191}{230}{reverse off}{green}{68}":next:d=1:i=.

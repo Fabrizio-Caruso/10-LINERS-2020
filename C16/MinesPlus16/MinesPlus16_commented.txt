@@ -20,7 +20,7 @@ s ASCII code of pressed key
 q probability of not generating a new random mine
 
 
-EXTENDED CODE
+EXTENDED CODE (using CBM Prg Studio notation for special characters)
 0h=500:g=3073:o=3191:color.,1:color4,1:k=1:n=3:m=87:deffnu(x)=int(rnd(1)*x):ifj>rthenr=j
 1d=4032:t=1024:j=.:p=o+h:q=.7:print"{white}{clear}ijkl {gray}spc":getkeyk$:fori=.tom:pokeo+1+fnu(840),m:next
 2color4,1:printspc(18)"{red}mines+":ifj=.orp<o+morp>d-41thenfori=.to39:pokeo-i,102:poked+i,102:next
