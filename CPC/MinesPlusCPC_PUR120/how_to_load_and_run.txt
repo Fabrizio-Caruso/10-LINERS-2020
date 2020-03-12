@@ -1,0 +1,10 @@
+EMULATOR SET-UP
+Use JavaCPC (or any other emulator capable of using .dsk images such as CaPriCe Forever)
+
+
+LOAD/RUN
+- Attach the .dsk file to the DF0: drive.
+- Load and run the game with run"minesplu.bas
+or with JabaCPC
+- File->Drives->DF0:->Insert->(Select .dsk file)
+- File->Drives->DF0:->Try to boot

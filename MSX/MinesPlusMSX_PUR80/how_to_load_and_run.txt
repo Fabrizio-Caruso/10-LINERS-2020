@@ -1,0 +1,8 @@
+EMULATOR SET-UP
+Use OpenMSX/Catapult emulator (or any other emulator that can use .dsk files).
+Select an MSX system with floppy (or add a floppy drive as an extension).
+
+LOAD/RUN
+Attach the .dsk file (Catapult: Session->Disk Drives->Disk) and 
+boot the machine.
+

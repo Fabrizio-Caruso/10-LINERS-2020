@@ -1,0 +1,11 @@
+EMULATOR SET-UP
+Use xvic emulator in Vice.
+Set xvic to emulate an UNEXPANDED (default) Vic 20.
+In case you need to revert to the default configuration you can do it with
+Settings->VIC20 Settings->No expansion memory.
+
+
+LOAD/RUN
+Load the .prg or .d64 file with:
+File -> Autostart... -> Select file
+

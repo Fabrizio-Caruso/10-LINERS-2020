@@ -1,0 +1,7 @@
+EMULATOR SET-UP
+Use xplus emulator in Vice.
+
+LOAD/RUN
+Load the .prg or .d64 file with:
+File -> Autostart... -> Select file
+

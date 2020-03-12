@@ -1,0 +1,10 @@
+EMULATOR SET-UP
+Use x128 emulator in Vice.
+IMPORTANT! Set x128 to use a REAL SID (ReSID): Settings->SID Settings->ReSID
+ReSID is necessary to reproduce the beep sounds obtained by bit-banging on the volume register.
+
+
+LOAD/RUN
+Load the .prg or .d64 file with:
+File -> Autostart... -> Select file
+
