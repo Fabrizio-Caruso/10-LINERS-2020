@@ -1,5 +1,4 @@
 VARIABLES
-
 n border and background color register
 v volume register
 u number of columns

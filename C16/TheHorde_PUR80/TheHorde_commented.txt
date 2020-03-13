@@ -12,6 +12,7 @@ g base address for zombie position
 j score
 r record
 n index of zombie on the arrow trajectory
+u vertical offset of zombie spawn position
 
 
 EXTENDED CODE (using CBM Prg Studio notation for special characters)

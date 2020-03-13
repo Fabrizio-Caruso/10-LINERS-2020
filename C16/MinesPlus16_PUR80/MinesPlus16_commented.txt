@@ -6,7 +6,7 @@ j score
 f use charges
 r record
 p player's position
-a space character
+a space character (32)
 e vertical vs horizontal movement
 c -1 for left/up movement,  +1 for right/down movement 
 m mine character
@@ -37,7 +37,7 @@ COMMENTED, EXTENDED, INDENTED CODE
 
 
 0
-// Initialization and color setting for border and foreground
+// Initialization and color setting for border and background
 h=500:g=3073:o=3191:color.,1:k=1:n=3:color4,1:m=87:
 
 // Random integer function

@@ -2,6 +2,18 @@ VARIABLES
 J score
 R record
 H time
+O upper border base address
+D lower border base address
+W good cell character (111)
+M virus cell character (15)
+N space character (32)
+S status of the cursor keys
+L flag for power-up (0: off, -1: on)
+Y number of good cells spawned by the player when ingesting a good cell
+X candidate position for the growth of 4 new virus cells or new power-up 
+P player's position
+Q candidate new player's position
+Z probability of not spawning a power-up cells and probability of not attempting to spawn 4 new virus cells at random positions
 
 
 CODE

@@ -1,6 +1,7 @@
 VARIABLES
 M mine character
 O upper border base address
+D lower border base address
 Q probability of not generating a new random mine
 V number of left lives
 M mine character

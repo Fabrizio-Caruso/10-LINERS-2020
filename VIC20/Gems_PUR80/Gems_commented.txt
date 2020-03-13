@@ -50,7 +50,7 @@ n=1:t=30720:
 // Set character data so that the first 64 chars are in ram and the last 128 are mapped as reversed
 pokev-9,255:
 
-// Set border and foreground to black color
+// Set border and background to black color
 pokev+1,8:
 
 // Print instructions

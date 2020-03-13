@@ -1,7 +1,7 @@
 VARIABLES
 t space character (32)
-x,y player's coordinates in pixels
-w player's character position 
+x,y player's sprite coordinates in pixels
+w player's character position in screen memory
 o initial upper border position
 r initial sprite data pointer
 h life energy left
@@ -12,6 +12,7 @@ m,l character offsets to apply to player's position
 a enemy speed
 q counter (to be used to increase enemy speed)
 j joystick status
+p score (number of collected jewels)
 
 
 EXTENDED CODE (using CBM Prg Studio notation for special characters)

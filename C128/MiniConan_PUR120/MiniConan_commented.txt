@@ -1,13 +1,17 @@
 VARIABLES
 e energy
-z armor upgrade level
-v player's speed
 f player's power
+v player's speed
+b boots level
+z armor upgrade level
+g money
 w(i) number of the i-th items
 m$(i) i-th item string
 p(i) price of the i-th item
 e$(i) i-th enemy string
 v(i) i-th enemy's power and (i-1)-th enemy's speed
+h computed enemy attack force in a fight
+m computed effective enemy speed in an escape attempt
 
 
 EXTENDED CODE (using CBM Prg Studio notation for special characters)
@@ -25,7 +29,7 @@ EXTENDED CODE (using CBM Prg Studio notation for special characters)
 COMMENTED, EXTENDED, COMMENTED CODE
 0
 
-// Initialization and set forground color to black
+// Initialization and set background color to black
 e=100:color0,1:r$="return":z=1:v=1:
 
 // Initialization 
