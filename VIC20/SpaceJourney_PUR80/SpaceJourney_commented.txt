@@ -1,14 +1,16 @@
 VARIABLES
-
 m number of missiles
 v volume register
 n border and background color register
-q space character
+q space character (32)
 p player's position
 l number of lives left
 i score
 r record
 t offset to access corresponding screen color ram
+c character just above player's ship (used to verify collision)
+b$ item to create (blue missile, yellow bomb)
+c$ asteroid character (it can have two values to produce two different shapes)
 
 
 EXTENDED CODE (using CBM Prg Studio notation for special characters)
