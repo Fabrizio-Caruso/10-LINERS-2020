@@ -2,7 +2,7 @@
 1v=n-1:pOv-9,255:g=198:u=22:z=8186:t=30720:h=52:pOn,8:?"{clear}{reverse on}{green}ijkl":wAg,1:pO650,128
 2l=.:x=5:y=44:m=9:o=7723:?"{clear}":p=7933:fOa=.to9:fOd=.to9+j/2:goS9:pOf+t,5:pOf,w:nE
 3b=54:pOf,b:pOf+t,1:goS9:pOf+t,2:pOf,211:nE:pOg,.:wAg,1:fOq=.to439:pOo+q+t,.:nE
-4pOn,8:?"{home}"sP6)"{reverse on}{red}S{cyan}"j"   {red}{reverse off}4{cyan}{reverse on}"m-xaN15:ifpE(p)=211tHpOn,90:j=j+1:l=l+1:x=x+(x>1)
+4pOn,8:?"{home}"sP6)"{reverse on}{red}S{cyan}"j"  {red}{reverse off}4{cyan}{reverse on}"m-xaN15:ifpE(p)=211tHpOn,90:j=j+1:l=l+1:x=x+(x>1)
 5pOp+t,2:pOp,h:gEa$:s=aS(a$+"@"):ifl>mtH?sP7)"{purple}{reverse on}completed":fOi=tton:nE:pOn,8:gO2
 6e=saN1:c=s-75+e:ifc=sG(c)tHx=x+.1:h=s-23:pOp,160:q=p+c*21*e+c:if(pE(q)<>w)gO8
 7on-(x<maNp<zaNp>oaNpE(p)<>b)gO4:pOn,109:?sPm)"{yellow}{reverse on}end":fOi=tton:nE:j=.:pOg,.:gO1

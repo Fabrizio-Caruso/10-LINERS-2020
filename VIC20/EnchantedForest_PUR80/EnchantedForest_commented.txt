@@ -23,7 +23,7 @@ EXTENDED CODE (using CBM Prg Studio notation for special characters)
 1v=n-1:pokev-9,255:g=198:u=22:z=8186:t=30720:h=52:poken,8:print"{clear}{reverse on}{green}ijkl":waitg,1:poke650,128
 2l=.:x=5:y=44:m=9:o=7723:print"{clear}":p=7933:fora=.to9:ford=.to9+j/2:gosub9:pokef+t,5:pokef,w:next
 3b=54:pokef,b:pokef+t,1:gosub9:pokef+t,2:pokef,211:next:pokeg,.:waitg,1:forq=.to439:pokeo+q+t,.:next
-4poken,8:print"{home}"spc(6)"{reverse on}{red}S{cyan}"j"   {red}{reverse off}4{cyan}{reverse on}"m-xand15:ifpeek(p)=211thenpoken,90:j=j+1:l=l+1:x=x+(x>1)
+4poken,8:print"{home}"spc(6)"{reverse on}{red}S{cyan}"j"  {red}{reverse off}4{cyan}{reverse on}"m-xand15:ifpeek(p)=211thenpoken,90:j=j+1:l=l+1:x=x+(x>1)
 5pokep+t,2:pokep,h:geta$:s=asc(a$+"@"):ifl>mthenprintspc(7)"{purple}{reverse on}completed":fori=tton:next:poken,8:goto2
 6e=sand1:c=s-75+e:ifc=sgn(c)thenx=x+.1:h=s-23:pokep,160:q=p+c*21*e+c:if(peek(q)<>w)goto8
 7on-(x<mandp<zandp>oandpeek(p)<>b)goto4:poken,109:printspc(m)"{yellow}{reverse on}end":fori=tton:next:j=.:pokeg,.:goto1
