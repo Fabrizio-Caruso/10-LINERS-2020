@@ -133,14 +133,14 @@ fork=.to1:
         // Initialization
         g$="ou and take":
         
-        // Display fight/run menu
+        // Display fight/go menu
         print"{light gray}1.fight":
-        print"2.run":
+        print"2.go":
         
         // Read input
         inputa:
         
-        // a is 0 if choice is "run" and 1 if "attack"
+        // a is 0 if choice is "go" and 1 if "attack"
         a=aand1:
         
         // Compute attack power of the enemies
@@ -151,7 +151,7 @@ fork=.to1:
         
         // If difference is positive, display lost points, decrease points and produce short beep by bit-baging the volume register
         ifh>.then
-            print"{red}you lose"h"p!":
+            print"{red}you lose"h"p":
             e=e-h:
             vol9:vol.
 6
