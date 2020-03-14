@@ -1,8 +1,9 @@
 MINES PLUS
+for the complete Amstrad CPC series in plain Locomotive 1.0 (which makes it compatible also with earlier models)
 
 Original game idea by Fabrizio Caruso
 
-This is primarily a strategy game. Move carefully.
+This is strategy game. Move carefully.
 
 You are in a minefield where mines appear both
 - under your feet once you move and 

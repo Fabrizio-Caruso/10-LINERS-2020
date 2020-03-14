@@ -1,0 +1,17 @@
+TREASURE CHAMBER
+for the Commodore 128 (native 128 mode) in plain BASIC V7
+
+This is an original game by Fabrizio Caruso
+
+This is an action game.
+
+You have reached the treasure chamber where jewels are spawned at random positions.
+Collect as many jewels as you can and avoid the 7 skulls.
+They follow you with a specific zone marking strategy, in that each skull has a pre-assigned zone.
+
+You start with an energy level of 8.
+When your energy reaches 0, the game is over.
+
+
+CONTROLS
+Use JOYSTICK in PORT 2 to move

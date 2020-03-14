@@ -1,4 +1,5 @@
 VIRUS
+for the MSX 1 series in MSX BASIC 1.0
 
 Original game by Fabrizio Caruso
 

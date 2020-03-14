@@ -1,8 +1,9 @@
 MINES PLUS
+for the Atari 8-bit computers in plain Atari BASIC
 
 Original game idea by Fabrizio Caruso
 
-This is strategy game. Move carefully.
+This is primarily a strategy game. Move carefully.
 
 You are in a minefield where mines appear both
 - under your feet once you move and 

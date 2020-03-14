@@ -1,4 +1,5 @@
 NEED for VIC
+for the unexpanded Commodore Vic 20 (it will NOT work on other configurations)
 
 Original game idea by Fabrizio Caruso
 

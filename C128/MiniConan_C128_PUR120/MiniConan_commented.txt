@@ -20,7 +20,7 @@ EXTENDED CODE (using CBM Prg Studio notation for special characters)
 2color4,1:gosub9:print"{orange}-<the inn>-":fori=1to4:print"{white}"i;j$(i):next:inputj:on-(j<4andj>.)goto4:gosub9:printj$(4):fori=1to3:print"{white}"i"{dark gray}"w(i)m$(i)p(i)
 3next:print" {white}4"m$(4):inputj:on-(j=4org<p(j)orw(j)=.)goto2:e=e+(j=1)*(w(1)>.)*20:b=b-(j=2)*10:z=z-(j=3):g=g-p(j):w(j)=w(j)-1:goto2
 4fork=.to1:fori=1toj*3:gosub9:printj$(j):print"{down}{white}- day -{gray}"i;q$:r=1+rnd(1)*(j+1):n=2+int(rnd(1)*(2*j+t)):print"you are attacked by{white}"n;e$(r)
-5g$="ou and take":print"{light gray}1.fight":print"2.run":inputa:a=aand1:h=fnf(v(r+1)/(.5+z/2)):h=a*h-f:ifh>.thenprint"{red}you lose"h"p!":e=e-h:vol9:vol.
+5g$="ou and take":print"{light gray}1.fight":print"2.go":inputa:a=aand1:h=fnf(v(r+1)/(.5+z/2)):h=a*h-f:ifh>.thenprint"{red}you lose"h"p":e=e-h:vol9:vol.
 6ife<1thenprint"{down}end":sleep3:gosub9:getkeyk$:run:elseifathenprint"{cyan}you kill the "e$(r):f=f+1:p=int(rnd(1)*r*n):print"{cyan}you get {orange}${yellow}"p:g=g+p:sleep1:goto8
 7m=fnf(v(r)):ifm>vandb<1thenx=1+int(m/9/z):print"{red}they grab y"g$;x"p":e=e-x:vol9:vol.:sleep1:goto5:elseprint"{cyan}escaped":sleep1:v=v+1:b=b+(b>.)
 8next:p=j*j*int(7+rnd(1)*9):ifk=.thent=t+.2-(t>2)*.2:q$=r$:print"{clear}{light green}you find {orange}${yellow}"p"{light green}!!{007}":g=g+p:sleep2:next:elseq$="":next:w(1)=w(1)+1:goto2

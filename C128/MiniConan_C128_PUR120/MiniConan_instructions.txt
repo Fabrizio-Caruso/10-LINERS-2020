@@ -1,6 +1,8 @@
 MINI CONAN
+for the Commodore 128 (native 128 mode) in plain BASIC V7
 
 This game is an original text role game by Fabrizio Caruso.
+
 The is a menu-driven and text role game, where you are presented a short list of choices.
 The game concept was inspired by the Italian text-based role-playing game "Conan" (aka "Avventura"):
 http://ready64.org/giochi/scheda_gioco/id/858/conan
