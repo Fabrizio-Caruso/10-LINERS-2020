@@ -1,0 +1,7 @@
+EMULATOR SET-UP
+Use Altirra emulator and enable Atari BASIC.
+
+LOAD/RUN
+File -> Boot Image -> Select .atr file
+
+
